@@ -1,7 +1,0 @@
-# ninja log v5
-0	221	1649791213093111445	CMakeFiles/my_project.dir/apps/main.cpp.o	d6f062bbbdb18b6c
-0	14	1649791769376448632	build.ninja	7c319980c697a793
-0	229	1649791533464774196	CMakeFiles/my_project.dir/apps/MiniMetro.cpp.o	b79c7538f230fbfd
-0	565	1649790685806084376	CMakeFiles/my_project.dir/main.cpp.o	252305616a651973
-215	288	1649791735884497636	my_project	99d664caea290008
-0	215	1649791735812497741	CMakeFiles/my_project.dir/apps/mini_metro_main.cpp.o	7859446c1857d5f1
