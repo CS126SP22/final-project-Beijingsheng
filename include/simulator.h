@@ -6,6 +6,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "brain.h"
 
 namespace minimetro {
 
@@ -13,10 +14,13 @@ class MiniMetroApp : public ci::app::App {
 public:
     MiniMetroApp();
 
+    void draw() override;
+    void update() override;
+
     const int kWindowSize = 875;
 
 private:
-
+    Brain brain_;
 };
 
 }
