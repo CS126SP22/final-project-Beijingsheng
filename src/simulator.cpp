@@ -9,85 +9,86 @@ MiniMetroApp::MiniMetroApp() {
     ci::app::setWindowSize(kWindowSize, kWindowSize);
 
     std::vector<std::vector<float>> locations;
-    std::vector<float> l1;
-    l1.push_back(100);
-    l1.push_back(100);
-    std::vector<float> l2;
-    l2.push_back(250);
-    l2.push_back(370);
-    std::vector<float> l3;
-    l3.push_back(500);
-    l3.push_back(500);
-    std::vector<float> l4;
-    l4.push_back(300);
-    l4.push_back(600);
+    std::vector<float> l1 {100, 100};
+    std::vector<float> l2 {200, 100};
+    std::vector<float> l3 {300, 100};
+    std::vector<float> l4 {400, 100};
+    std::vector<float> l5 {400, 200};
+    std::vector<float> l6 {400, 300};
+    std::vector<float> l7 {400, 400};
+    std::vector<float> l8 {300, 400};
+    std::vector<float> l9 {200, 400};
+    std::vector<float> l10 {100, 400};
+    std::vector<float> l11 {100, 300};
+    std::vector<float> l12 {100, 200};
     locations.push_back(l1);
     locations.push_back(l2);
     locations.push_back(l3);
     locations.push_back(l4);
+    locations.push_back(l5);
+    locations.push_back(l6);
+    locations.push_back(l7);
+    locations.push_back(l8);
+    locations.push_back(l9);
+    locations.push_back(l10);
+    locations.push_back(l11);
+    locations.push_back(l12);
 
     std::vector<std::vector<int>> connections;
-    std::vector<int> c1;
-    std::vector<int> c2;
-    std::vector<int> c3;
-    std::vector<int> c4;
+    std::vector<int> c1 {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+    std::vector<int> c2 {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0};
+    std::vector<int> c3 {0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0};
+    std::vector<int> c4 {0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0};
+    std::vector<int> c5 {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1};
+    std::vector<int> c6 {0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0};
+    std::vector<int> c7 {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0};
+    std::vector<int> c8 {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0};
+    std::vector<int> c9 {0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0};
+    std::vector<int> c10 {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0};
+    std::vector<int> c11 {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1};
+    std::vector<int> c12 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
 
-    c1.push_back(0);
-    c1.push_back(1);
-    c1.push_back(0);
-    c1.push_back(0);
-
-    c2.push_back(1);
-    c2.push_back(0);
-    c2.push_back(1);
-    c2.push_back(1);
-
-    c3.push_back(0);
-    c3.push_back(1);
-    c3.push_back(0);
-    c3.push_back(1);
-
-    c4.push_back(0);
-    c4.push_back(1);
-    c4.push_back(1);
-    c4.push_back(0);
 
     connections.push_back(c1);
     connections.push_back(c2);
     connections.push_back(c3);
     connections.push_back(c4);
+    connections.push_back(c5);
+    connections.push_back(c6);
+    connections.push_back(c7);
+    connections.push_back(c8);
+    connections.push_back(c9);
+    connections.push_back(c10);
+    connections.push_back(c11);
+    connections.push_back(c12);
 
-    std::vector<std::vector<int>> routes;
+    std::vector<Metro> metros;
     std::vector<int> r1;
+    std::vector<int> r2 {0};
+    for (int i = 0; i < 12; i++) {
+        r1.push_back(i);
+        r2.push_back(11 - i);
+    }
     r1.push_back(0);
-    r1.push_back(1);
-    r1.push_back(3);
-    routes.push_back(r1);
-    std::vector<int> r2;
-    r2.push_back(1);
-    r2.push_back(3);
-    r2.push_back(2);
-    r2.push_back(1);
-    routes.push_back(r2);
+    Metro m1 = Metro( r1, ci::Color("black"));
+    Metro m2 = Metro(r2, ci::Color("brown"));
+    Metro m3 = Metro(std::vector<int> {1, 8, 1}, ci::Color("red"));
+    Metro m4 = Metro(std::vector<int> {7, 2, 7}, ci::Color("yellow"));
+    Metro m5 = Metro(std::vector<int> {4, 11, 4}, ci::Color("pink"));
+    Metro m6 = Metro(std::vector<int> {10, 5, 10}, ci::Color("orange"));
+//    metros.push_back(m1);
+    metros.push_back(m2);
+    metros.push_back(m3);
+    metros.push_back(m4);
+    metros.push_back(m5);
+    metros.push_back(m6);
 
-    std::vector<std::vector<int>> destinations;
-    std::vector<int> d1;
-    d1.push_back(0);
-    d1.push_back(1);
-    d1.push_back(3);
-    d1.push_back(2);
-    destinations.push_back(d1);
-    std::vector<int> d2;
-    d2.push_back(2);
-    d2.push_back(1);
-    d2.push_back(0);
-    destinations.push_back(d2);
+    std::vector<Passenger> passengers;
+    for (int i = 0; i < 10; i++) {
+        passengers.push_back(Passenger(i, ci::Color("blue")));
+    }
 
-    std::vector<ci::Color> colors;
-    colors.push_back(ci::Color("orange"));
-    colors.push_back(ci::Color("red"));
-
-    brain_ = Brain(locations, connections, routes, 12, destinations, colors);
+    brain_ = Brain(locations, connections, metros, 12, passengers, 6);
 }
 
 void MiniMetroApp::draw() {

@@ -10,67 +10,56 @@ using glm::vec2;
 Brain::Brain() {}
 
 Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<int>> connections,
-             std::vector<std::vector<int>> routes, int station_radius,
-             std::vector<std::vector<int>> destinations, std::vector<ci::Color> colors) {
+             std::vector<Metro> metros, int station_radius,
+             std::vector<Passenger> passengers, int d) {
     this->locations = locations;
     this->connections = connections;
     this->station_radius_ = station_radius;
-    this->routes = routes;
-    this->destinations = destinations;
-    this->colors = colors;
-    InitPlatform(locations, routes);
-    InitMetroLocs(routes);
-    InitPassengers(routes);
-    InitNextStops(routes);
-    InitDirections(routes);
-    InitColors(colors);
-}
-
-void Brain::InitPassengers(std::vector<std::vector<int>> routes) {
-    for (unsigned int i = 0; i < routes.size(); i++) {
-        this->passengers.push_back(0);
+    this->metros = metros;
+    this->passengers = passengers;
+    this->destination = d;
+    this->dijkstra = Dijkstra(InitDijkstra());
+    for (size_t i = 0; i < locations.size(); i++) {
+        std::vector<int> p;
+        this->platform.push_back(p);
+        std::vector<int> h = dijkstra.GetPath(destination, 0);
+        this->heights.push_back(h);
     }
+    InitMetro();
+    InitPassengers();
+//    for (int i = 0; i < locations.size(); i++) {
+//        std::cout << heights[0][i] << std::endl;
+//    }
 }
 
-void Brain::InitNextStops(std::vector<std::vector<int>> routes) {
-    for (unsigned int i = 0; i < routes.size(); i++) {
-        next_stop.push_back(1);
+Dijkstra Brain::InitDijkstra() {
+    std::vector<std::vector<int>> graph;
+    for (int i = 0; i < locations.size(); i++) {
+        std::vector<int> temp;
+        for (int j = 0; j < locations.size(); j++) {
+            temp.push_back(0);
+        }
+        graph.push_back(temp);
     }
-}
 
-void Brain::InitMetroLocs(std::vector<std::vector<int>> routes) {
-    for (unsigned int i = 0; i < routes.size(); i++) {
-        std::vector<float> curLoc;
-        curLoc.push_back(locations[routes[i][0]][0]);
-        curLoc.push_back(locations[routes[i][0]][1]);
-        this->metro_locs.push_back(curLoc);
-    }
-}
-
-void Brain::InitDirections(std::vector<std::vector<int>> routes) {
-    for (unsigned int i = 0; i < routes.size(); i++) {
-        if (routes[i][0] == routes[i][routes[i].size() - 1]) {
-            this->directions.push_back(-1);
-        } else {
-            this->directions.push_back(0);
+    for (int i = 0; i < metros.size(); i++) {
+        for (int j = 0; j < metros[i].route.size() - 1; j++) {
+            graph[metros[i].route[j]][metros[i].route[j+1]] = 1;
+//            graph[metros[i].route[j+1]][metros[i].route[j]] = 1;
         }
     }
+    return graph;
 }
 
-void Brain::InitPlatform(std::vector<std::vector<float>> locations, std::vector<std::vector<int>> routes) {
-    for (unsigned int i = 0; i < locations.size(); i++) {
-        std::vector<int> toPush;
-        platform.push_back(toPush);
-    }
-    for (unsigned int i = 0; i < destinations.size(); i++) {
-        platform[destinations[i][0]].push_back(i);
+void Brain::InitMetro() {
+    for (size_t i = 0; i < metros.size(); i++) {
+        metros[i].location = locations[metros[i].GetCurStop()];
     }
 }
 
-void Brain::InitColors(std::vector<ci::Color> colors) {
-    for (unsigned int i = 0; i < colors.size(); i++) {
-        this->tourists_locs.push_back(0);
-        this->on_metro.push_back(false);
+void Brain::InitPassengers() {
+    for (size_t i = 0; i < passengers.size(); i++) {
+        platform[passengers[i].GetCurStop()].push_back(i);
     }
 }
 
@@ -87,23 +76,37 @@ void Brain::DisplayConnections() {
 
 void Brain::DisplayStations() {
     for (unsigned int i = 0; i < locations.size(); i++) {
-        ci::gl::color(ci::Color("black"));
+        if (platform[i].size() == 0)
+            ci::gl::color(ci::Color("green"));
+        else if (platform[i].size() == 1)
+            ci::gl::color(ci::Color("orange"));
+        else if (platform[i].size() >= 2)
+            ci::gl::color(ci::Color("red"));
         ci::gl::drawSolidCircle(glm::vec2(locations[i][0], locations[i][1]), station_radius_);
     }
 }
 
 void Brain::DisplayMetros() {
-    for (unsigned int i = 0; i < metro_locs.size(); i++) {
-        ci::gl::color(ci::Color("yellow"));
-        ci::gl::drawSolidCircle(glm::vec2(metro_locs[i][0], metro_locs[i][1]), station_radius_ * 0.7);
+    for (unsigned int i = 0; i < metros.size(); i++) {
+        ci::gl::color(metros[i].color);
+        ci::gl::drawSolidCircle(glm::vec2(metros[i].location[0], metros[i].location[1]), station_radius_ * 0.9);
     }
 }
 
 void Brain::DisplayTourists() {
-    for (unsigned int i = 0; i < tourists_locs.size(); i++) {
-        if (on_metro[i] == false) {
-            ci::gl::color(ci::Color(colors[i]));
-            ci::gl::drawSolidCircle(glm::vec2(locations[destinations[i][tourists_locs[i]]][0], locations[destinations[i][tourists_locs[i]]][1]), station_radius_ * 0.5);
+    for (size_t i = 0; i < platform.size(); i++) {
+        for (size_t j = 0; j < platform[i].size(); j++) {
+            ci::gl::color(passengers[platform[i][j]].color);
+            if (passengers[platform[i][j]].on_metro == -1) {
+                ci::gl::drawSolidCircle(glm::vec2(locations[passengers[platform[i][j]].cur_stop][0] - (j + 1) * station_radius_ * 1.2, locations[passengers[platform[i][j]].cur_stop][1] - (j + 1) * station_radius_ * 1.2), station_radius_ * 0.7);
+            }
+        }
+    }
+
+    for (size_t i = 0; i < passengers.size(); i++) {
+        if (passengers[i].on_metro != -1) {
+            ci::gl::color(passengers[i].color);
+            ci::gl::drawSolidCircle(glm::vec2(metros[passengers[i].on_metro].location[0] - station_radius_ * 1.2, metros[passengers[i].on_metro].location[1] - station_radius_ * 1.2), station_radius_ * 0.7);
         }
     }
 }
@@ -115,80 +118,75 @@ void Brain::Display() {
     DisplayTourists();
 }
 
-void Brain::UpdateDirection(int i) {
-    if (next_stop[i] == 0 || next_stop[i] == routes[i].size() - 1) {
-        if (directions[i] == 0) directions[i] = 1;
-        else if (directions[i] == 1) directions[i] = 0;
-    }
-}
-
-int Brain::GetMetroNextStop(int i) {
-    int temp = next_stop[i];
-    int temp2 = directions[i];
-    if (temp2 == 0 || temp2 == -1)
-        temp = (temp + 1) % routes[i].size();
-    else if (temp2 == 1)
-        temp = (temp - 1) % routes[i].size();
-    return routes[i][temp];
-}
-
-void Brain::UpdateNextStop(int i) {
-    if (directions[i] == 0 || directions[i] == -1) next_stop[i] = (next_stop[i] + 1) % routes[i].size();
-    else if (directions[i] == 1) next_stop[i] = (next_stop[i] - 1) % routes[i].size();
-}
-
-int Brain::HasPassengerToBoard(int i) {
-    int station = routes[i][next_stop[i]];
+void Brain::OnBoard(int i, int station) {
+    if (station == destination)
+        return;
     if (platform[station].size() > 0) {
-        for (unsigned int k = 0; k < platform[station].size(); k++) {
-            int curPassengerId = platform[station][k];
-            int passengerNextLoc = destinations[curPassengerId].size() - 1;
-            if (tourists_locs[curPassengerId] + 1 < passengerNextLoc) passengerNextLoc = tourists_locs[curPassengerId] + 1;
-            if (GetMetroNextStop(i) == destinations[curPassengerId][passengerNextLoc]) {
-
+        int p = platform[station][0];
+        if (passengers[p].cur_stop != destination) {
+            if (passengers[p].visited.size() == 0) {
+                platform[station].erase(platform[station].begin());
+                metros[i].passenger = p;
+                passengers[p].on_metro = i;
+                passengers[p].visited.push_back(station);
+                }
+            else if (passengers[p].visited.size() > 0 && heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] > heights[p][metros[i].GetNextStop()]) {
+                platform[station].erase(platform[station].begin());
+                metros[i].passenger = p;
+                passengers[p].on_metro = i;
+                passengers[p].visited.push_back(station);
             }
         }
     }
-    return -1;
 }
 
-int Brain::HasPassengerToLeave(int i) {
-
+void Brain::OffBoard(int i, int station) {
+    int p = metros[i].passenger;
+    if (station == destination) {
+        metros[i].passenger = -1;
+        passengers[p].on_metro = -1;
+        passengers[p].cur_stop = station;
+        platform[station].push_back(p);
+    }
+    if (heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] >= heights[p][station]) {
+        metros[i].passenger = -1;
+        passengers[p].on_metro = -1;
+        passengers[p].cur_stop = station;
+        platform[station].push_back(p);
+    }
 }
 
 void Brain::UpdateArriving(int i) {
-    metro_locs[i][0] = locations[routes[i][next_stop[i]]][0];
-    metro_locs[i][1] = locations[routes[i][next_stop[i]]][1];
-
-    if (passengers[i] == 0) {
-        if (HasPassengerToBoard(i) != -1) {
-
-        }
+    metros[i].location[0] = locations[metros[i].GetNextStop()][0];
+    metros[i].location[1] = locations[metros[i].GetNextStop()][1];
+    metros[i].OnArrive();
+    if (metros[i].passenger == -1) {
+        OnBoard(i, metros[i].GetCurStop());
     } else {
-        if (HasPassengerToLeave(i) != -1) {
-
-        }
+        OffBoard(i, metros[i].GetCurStop());
+        OnBoard(i, metros[i].GetCurStop());
     }
-    UpdateNextStop(i);
-    UpdateDirection(i);
 }
 
 void Brain::UpdateDriving(int i) {
-    float x1 = locations[routes[i][next_stop[i]]][1] - metro_locs[i][1];
-    float x2 = locations[routes[i][next_stop[i]]][0] - metro_locs[i][0];
+    float x1 = locations[metros[i].route[metros[i].next_stop_idx]][1] - metros[i].location[1];
+    float x2 = locations[metros[i].route[metros[i].next_stop_idx]][0] - metros[i].location[0];
     float x3 = sqrt(x1 * x1 + x2 * x2);
-    metro_locs[i][0] += 2 * x2 / x3;
-    metro_locs[i][1] += 2 * x1 / x3;
+    metros[i].location[0] += 5 * x2 / x3;
+    metros[i].location[1] += 5 * x1 / x3;
 }
 
 void Brain::AdvanceOneFrame() {
-    for (unsigned int i = 0; i < metro_locs.size(); i++) {
-        if (glm::length(glm::vec2(metro_locs[i][0], metro_locs[i][1])
-                            - glm::vec2(locations[routes[i][next_stop[i]]][0], locations[routes[i][next_stop[i]]][1]))
+    for (size_t i = 0; i < metros.size(); i++) {
+        if (glm::length(glm::vec2(metros[i].location[0], metros[i].location[1])
+                            - glm::vec2(locations[metros[i].GetNextStop()][0], locations[metros[i].GetNextStop()][1]))
                             < station_radius_) {
             UpdateArriving(i);
         } else {
             UpdateDriving(i);
+            if (metros[i].passenger != -1) {
+                std::cout << metros[i].passenger << std::endl;
+            }
         }
     }
 }
