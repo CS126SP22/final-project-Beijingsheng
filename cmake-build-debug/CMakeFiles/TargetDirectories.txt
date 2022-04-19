@@ -1,0 +1,3 @@
+/home/clark/Cinder/my-projects/final-project-Beijingsheng/cmake-build-debug/CMakeFiles/mini-metro.dir
+/home/clark/Cinder/my-projects/final-project-Beijingsheng/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/clark/Cinder/my-projects/final-project-Beijingsheng/cmake-build-debug/CMakeFiles/rebuild_cache.dir
