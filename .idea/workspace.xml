@@ -11,7 +11,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="dijkstra for opitimizing routes" />
+    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="dijkstra for opitimizing routes">
+      <change afterPath="$PROJECT_DIR$/src/temp.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brain.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brain.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/brain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/brain.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +55,8 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
@@ -55,11 +70,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="mini-metro" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="final_project_Beijingsheng" TARGET_NAME="mini-metro" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="final_project_Beijingsheng" RUN_TARGET_NAME="mini-metro">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -85,6 +95,8 @@
       <workItem from="1650241517772" duration="336000" />
       <workItem from="1650291525029" duration="13014000" />
       <workItem from="1650406760639" duration="5000" />
+      <workItem from="1650734256419" duration="6686000" />
+      <workItem from="1650772825043" duration="3281000" />
     </task>
     <task id="LOCAL-00001" summary="set up simulator.h, simulator.cpp, render window">
       <created>1649801345562</created>

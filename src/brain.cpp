@@ -11,25 +11,40 @@ Brain::Brain() {}
 
 Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<int>> connections,
              std::vector<Metro> metros, int station_radius,
-             std::vector<Passenger> passengers, int d) {
+             std::vector<Passenger> passengers, std::vector<int> d) {
+    //locations for all station
     this->locations = locations;
+    //connections between stations
     this->connections = connections;
+    //station radius on graph
     this->station_radius_ = station_radius;
+    //all metro routes
     this->metros = metros;
+    //all passengers, color and start station
     this->passengers = passengers;
+    //all passengers' destination
     this->destination = d;
+    //height of each station
     this->dijkstra = Dijkstra(InitDijkstra());
+
     for (size_t i = 0; i < locations.size(); i++) {
         std::vector<int> p;
         this->platform.push_back(p);
-        std::vector<int> h = dijkstra.GetPath(destination, 0);
+    }
+    for (size_t i = 0; i < passengers.size(); i++) {
+        std::vector<int> h = dijkstra.GetPath(destination[i], 0);
         this->heights.push_back(h);
     }
+
     InitMetro();
     InitPassengers();
-//    for (int i = 0; i < locations.size(); i++) {
-//        std::cout << heights[0][i] << std::endl;
-//    }
+
+    for (int i = 0; i < heights.size(); i++) {
+        for (int j = 0; j < heights[i].size(); j++) {
+            std::cout << heights[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 Dijkstra Brain::InitDijkstra() {
@@ -44,10 +59,10 @@ Dijkstra Brain::InitDijkstra() {
 
     for (int i = 0; i < metros.size(); i++) {
         for (int j = 0; j < metros[i].route.size() - 1; j++) {
-            graph[metros[i].route[j]][metros[i].route[j+1]] = 1;
-//            graph[metros[i].route[j+1]][metros[i].route[j]] = 1;
+            graph[metros[i].route[j+1]][metros[i].route[j]] = 1;
         }
     }
+
     return graph;
 }
 
@@ -118,23 +133,39 @@ void Brain::Display() {
     DisplayTourists();
 }
 
+//logic to decide if pick up a passenger when metro i enters station station
 void Brain::OnBoard(int i, int station) {
-    if (station == destination)
+    //don't pick up passenger if this is the destination
+    if (metros[i].passenger != -1)
         return;
+    //if the station has at least one passenger on the platform
     if (platform[station].size() > 0) {
-        int p = platform[station][0];
-        if (passengers[p].cur_stop != destination) {
-            if (passengers[p].visited.size() == 0) {
-                platform[station].erase(platform[station].begin());
-                metros[i].passenger = p;
-                passengers[p].on_metro = i;
-                passengers[p].visited.push_back(station);
+        //get this passenger's id
+        for (size_t idx = 0; idx < platform[station].size(); idx++) {
+            int p = platform[station][idx];
+            std::cout << p << " " << destination[p] << " " << station << endl;
+            if (station == destination[p])
+                continue;
+            if (passengers[p].cur_stop != destination[p]) {
+                //if this passenger hasn't boarded any metro
+                if (passengers[p].visited.size() == 0) {
+                    //passenger leave platform
+                    std::cout << p << " get on metro " << i << " at station " << station << std::endl;
+                    platform[station].erase(platform[station].begin() + idx);
+                    //passenger board metro
+                    metros[i].passenger = p;
+                    passengers[p].on_metro = i;
+                    //passenger leave that station
+                    passengers[p].visited.push_back(station);
                 }
-            else if (passengers[p].visited.size() > 0 && heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] > heights[p][metros[i].GetNextStop()]) {
-                platform[station].erase(platform[station].begin());
-                metros[i].passenger = p;
-                passengers[p].on_metro = i;
-                passengers[p].visited.push_back(station);
+                else if (passengers[p].visited.size() > 0 && heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] > heights[p][metros[i].GetNextStop()]) {
+                    std::cout << p << " get on metro " << i << " at station " << station << std::endl;
+                    platform[station].erase(platform[station].begin() + idx);
+                    metros[i].passenger = p;
+                    passengers[p].on_metro = i;
+                    passengers[p].visited.push_back(station);
+                }
+                break;
             }
         }
     }
@@ -142,16 +173,18 @@ void Brain::OnBoard(int i, int station) {
 
 void Brain::OffBoard(int i, int station) {
     int p = metros[i].passenger;
-    if (station == destination) {
+    if (station == destination[p]) {
         metros[i].passenger = -1;
         passengers[p].on_metro = -1;
         passengers[p].cur_stop = station;
+        std::cout << p << " get off metro " << i << " at station " << station << std::endl;
         platform[station].push_back(p);
     }
-    if (heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] >= heights[p][station]) {
+    else if (heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] >= heights[p][station]) {
         metros[i].passenger = -1;
         passengers[p].on_metro = -1;
         passengers[p].cur_stop = station;
+        std::cout << p << " get off metro " << i << " at station " << station << std::endl;
         platform[station].push_back(p);
     }
 }
@@ -184,9 +217,6 @@ void Brain::AdvanceOneFrame() {
             UpdateArriving(i);
         } else {
             UpdateDriving(i);
-            if (metros[i].passenger != -1) {
-                std::cout << metros[i].passenger << std::endl;
-            }
         }
     }
 }

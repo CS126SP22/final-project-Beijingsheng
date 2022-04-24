@@ -16,7 +16,7 @@ public:
     Brain();
     Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<int>> connections,
           std::vector<Metro> metros, int station_radius,
-          std::vector<Passenger> passengers, int d);
+          std::vector<Passenger> passengers, std::vector<int> d);
     void Display();
     void AdvanceOneFrame();
 
@@ -35,7 +35,7 @@ private:
     void OnBoard(int metro, int station);
     void OffBoard(int metro, int station);
 
-    int destination;
+    std::vector<int> destination;
 
     std::vector<std::vector<int>> platform;
     std::vector<std::vector<float>> locations;
