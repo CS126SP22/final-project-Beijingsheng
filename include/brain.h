@@ -25,6 +25,7 @@ private:
     void DisplayStations();
     void DisplayMetros();
     void DisplayTourists();
+    void DisplayInformation();
     void InitMetro();
     void InitPassengers();
     Dijkstra InitDijkstra();
@@ -41,6 +42,7 @@ private:
     std::vector<std::vector<float>> locations;
     std::vector<std::vector<int>> connections;
     int station_radius_;
+    int steps_needed;
     std::vector<Metro> metros;
     std::vector<Passenger> passengers;
     Dijkstra dijkstra;

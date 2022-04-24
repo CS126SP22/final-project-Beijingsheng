@@ -12,6 +12,7 @@
 //connections.push_back(std::vector<int> {0,1,0});
 //metros.push_back(Metro(std::vector<int> {0, 1, 2, 1, 0}, ci::Color("black")));
 //passengers.push_back(Passenger(0, ci::Color("blue")));
+//destination.push_back(2);
 
 //
 //

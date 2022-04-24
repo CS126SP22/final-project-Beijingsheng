@@ -27,6 +27,8 @@ Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<
     //height of each station
     this->dijkstra = Dijkstra(InitDijkstra());
 
+    this->steps_needed = 0;
+
     for (size_t i = 0; i < locations.size(); i++) {
         std::vector<int> p;
         this->platform.push_back(p);
@@ -34,17 +36,18 @@ Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<
     for (size_t i = 0; i < passengers.size(); i++) {
         std::vector<int> h = dijkstra.GetPath(destination[i], 0);
         this->heights.push_back(h);
+        this->steps_needed += h[passengers[i].cur_stop];
     }
 
     InitMetro();
     InitPassengers();
-
-    for (int i = 0; i < heights.size(); i++) {
-        for (int j = 0; j < heights[i].size(); j++) {
-            std::cout << heights[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
+//
+//    for (int i = 0; i < heights.size(); i++) {
+//        for (int j = 0; j < heights[i].size(); j++) {
+//            std::cout << heights[i][j] << " ";
+//        }
+//        std::cout << std::endl;
+//    }
 }
 
 Dijkstra Brain::InitDijkstra() {
@@ -82,8 +85,10 @@ void Brain::DisplayConnections() {
     for (unsigned int i = 0; i < connections.size(); i++) {
         for (unsigned int j = i + 1; j < connections.size(); j++) {
             if (connections[i][j] == 1) {
-                ci::gl::color(ci::Color("blue"));
-                ci::gl::drawLine(glm::vec2(locations[i][0], locations[i][1]), glm::vec2(locations[j][0], locations[j][1]));
+                ci::gl::color(ci::Color("black"));
+                ci::gl::drawLine(glm::vec2(locations[i][0] + station_radius_ * 0.5, locations[i][1] + station_radius_ * 0.5), glm::vec2(locations[j][0] + station_radius_ * 0.5, locations[j][1] + station_radius_ * 0.5));
+                ci::gl::color(ci::Color("black"));
+                ci::gl::drawLine(glm::vec2(locations[i][0] - station_radius_ * 0.5, locations[i][1] - station_radius_ * 0.5), glm::vec2(locations[j][0] - station_radius_ * 0.5, locations[j][1] - station_radius_ * 0.5));
             }
         }
     }
@@ -91,29 +96,52 @@ void Brain::DisplayConnections() {
 
 void Brain::DisplayStations() {
     for (unsigned int i = 0; i < locations.size(); i++) {
+        ci::Rectf r;
+        ci::gl::color(ci::Color("gray"));
+        r.set(locations[i][0] - station_radius_ * 1.5 + 4, locations[i][1] - station_radius_ * 1.5 + 4, locations[i][0] + station_radius_ * 1.5 + 4, locations[i][1] + station_radius_ * 1.5 + 4);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
+
         if (platform[i].size() == 0)
-            ci::gl::color(ci::Color("green"));
+            ci::gl::color(ci::Color(0.31, 1, 0.39));
         else if (platform[i].size() == 1)
-            ci::gl::color(ci::Color("orange"));
+            ci::gl::color(ci::Color(1, 0.87, 0.58));
         else if (platform[i].size() >= 2)
-            ci::gl::color(ci::Color("red"));
-        ci::gl::drawSolidCircle(glm::vec2(locations[i][0], locations[i][1]), station_radius_);
+            ci::gl::color(ci::Color(1, 0.59, 0.59));
+        r.set(locations[i][0] - station_radius_ * 1.5, locations[i][1] - station_radius_ * 1.5, locations[i][0] + station_radius_ * 1.5, locations[i][1] + station_radius_ * 1.5);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
+
+        ci::gl::color(ci::Color("white"));
+        r.set(locations[i][0] - station_radius_ - 0.5, locations[i][1] - station_radius_ - 0.5, locations[i][0] + station_radius_ + 2, locations[i][1] + station_radius_ + 2);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
+        if (platform[i].size() == 0)
+            ci::gl::color(ci::Color(0.31, 1, 0.39));
+        else if (platform[i].size() == 1)
+            ci::gl::color(ci::Color(1, 0.87, 0.58));
+        else if (platform[i].size() >= 2)
+            ci::gl::color(ci::Color(1, 0.59, 0.59));
+        r.set(locations[i][0] - station_radius_, locations[i][1] - station_radius_, locations[i][0] + station_radius_, locations[i][1] + station_radius_);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
     }
 }
 
 void Brain::DisplayMetros() {
     for (unsigned int i = 0; i < metros.size(); i++) {
         ci::gl::color(metros[i].color);
-        ci::gl::drawSolidCircle(glm::vec2(metros[i].location[0], metros[i].location[1]), station_radius_ * 0.9);
+        ci::Rectf r;
+        r.set(metros[i].location[0] - station_radius_ * 0.4, metros[i].location[1] - station_radius_ * 0.4, metros[i].location[0] + station_radius_ * 0.4, metros[i].location[1] + station_radius_ * 0.4);
+        ci::gl::drawSolidRect(r);
     }
 }
 
 void Brain::DisplayTourists() {
     for (size_t i = 0; i < platform.size(); i++) {
         for (size_t j = 0; j < platform[i].size(); j++) {
-            ci::gl::color(passengers[platform[i][j]].color);
+            if (passengers[platform[i][j]].cur_stop != destination[platform[i][j]])
+                ci::gl::color(passengers[platform[i][j]].color);
+            else
+                ci::gl::color(ci::Color("green"));
             if (passengers[platform[i][j]].on_metro == -1) {
-                ci::gl::drawSolidCircle(glm::vec2(locations[passengers[platform[i][j]].cur_stop][0] - (j + 1) * station_radius_ * 1.2, locations[passengers[platform[i][j]].cur_stop][1] - (j + 1) * station_radius_ * 1.2), station_radius_ * 0.7);
+                ci::gl::drawSolidCircle(glm::vec2(locations[passengers[platform[i][j]].cur_stop][0] - (j + 2) * station_radius_ * 0.8, locations[passengers[platform[i][j]].cur_stop][1] - (j + 2) * station_radius_ * 0.8), station_radius_ * 0.5);
             }
         }
     }
@@ -121,9 +149,17 @@ void Brain::DisplayTourists() {
     for (size_t i = 0; i < passengers.size(); i++) {
         if (passengers[i].on_metro != -1) {
             ci::gl::color(passengers[i].color);
-            ci::gl::drawSolidCircle(glm::vec2(metros[passengers[i].on_metro].location[0] - station_radius_ * 1.2, metros[passengers[i].on_metro].location[1] - station_radius_ * 1.2), station_radius_ * 0.7);
+            ci::gl::drawSolidCircle(glm::vec2(metros[passengers[i].on_metro].location[0] - station_radius_ * 1.2, metros[passengers[i].on_metro].location[1] - station_radius_ * 1.2), station_radius_ * 0.6);
         }
     }
+}
+
+void Brain::DisplayInformation() {
+    int temp = 0;
+    for (int i = 0; i < passengers.size(); i++) {
+        temp += heights[i][passengers[i].cur_stop];
+    }
+    ci::gl::drawStringCentered(std::to_string(steps_needed - temp) + "/" + std::to_string(steps_needed), vec2(50, 100), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 30));
 }
 
 void Brain::Display() {
@@ -131,6 +167,7 @@ void Brain::Display() {
     DisplayStations();
     DisplayMetros();
     DisplayTourists();
+    DisplayInformation();
 }
 
 //logic to decide if pick up a passenger when metro i enters station station
@@ -143,7 +180,6 @@ void Brain::OnBoard(int i, int station) {
         //get this passenger's id
         for (size_t idx = 0; idx < platform[station].size(); idx++) {
             int p = platform[station][idx];
-            std::cout << p << " " << destination[p] << " " << station << endl;
             if (station == destination[p])
                 continue;
             if (passengers[p].cur_stop != destination[p]) {
@@ -213,7 +249,7 @@ void Brain::AdvanceOneFrame() {
     for (size_t i = 0; i < metros.size(); i++) {
         if (glm::length(glm::vec2(metros[i].location[0], metros[i].location[1])
                             - glm::vec2(locations[metros[i].GetNextStop()][0], locations[metros[i].GetNextStop()][1]))
-                            < station_radius_) {
+                            < station_radius_ * 0.2) {
             UpdateArriving(i);
         } else {
             UpdateDriving(i);
