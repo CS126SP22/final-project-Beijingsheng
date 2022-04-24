@@ -41,13 +41,6 @@ Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<
 
     InitMetro();
     InitPassengers();
-//
-//    for (int i = 0; i < heights.size(); i++) {
-//        for (int j = 0; j < heights[i].size(); j++) {
-//            std::cout << heights[i][j] << " ";
-//        }
-//        std::cout << std::endl;
-//    }
 }
 
 Dijkstra Brain::InitDijkstra() {
@@ -186,7 +179,6 @@ void Brain::OnBoard(int i, int station) {
                 //if this passenger hasn't boarded any metro
                 if (passengers[p].visited.size() == 0) {
                     //passenger leave platform
-                    std::cout << p << " get on metro " << i << " at station " << station << std::endl;
                     platform[station].erase(platform[station].begin() + idx);
                     //passenger board metro
                     metros[i].passenger = p;
@@ -195,7 +187,6 @@ void Brain::OnBoard(int i, int station) {
                     passengers[p].visited.push_back(station);
                 }
                 else if (passengers[p].visited.size() > 0 && heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] > heights[p][metros[i].GetNextStop()]) {
-                    std::cout << p << " get on metro " << i << " at station " << station << std::endl;
                     platform[station].erase(platform[station].begin() + idx);
                     metros[i].passenger = p;
                     passengers[p].on_metro = i;
@@ -213,14 +204,12 @@ void Brain::OffBoard(int i, int station) {
         metros[i].passenger = -1;
         passengers[p].on_metro = -1;
         passengers[p].cur_stop = station;
-        std::cout << p << " get off metro " << i << " at station " << station << std::endl;
         platform[station].push_back(p);
     }
     else if (heights[p][passengers[p].visited[passengers[p].visited.size() - 1]] >= heights[p][station]) {
         metros[i].passenger = -1;
         passengers[p].on_metro = -1;
         passengers[p].cur_stop = station;
-        std::cout << p << " get off metro " << i << " at station " << station << std::endl;
         platform[station].push_back(p);
     }
 }
@@ -246,6 +235,11 @@ void Brain::UpdateDriving(int i) {
 }
 
 void Brain::AdvanceOneFrame() {
+    int count = 0;
+    for (size_t i = 0; i < passengers.size(); i++) {
+        if (passengers[i].cur_stop == destination[i]) count ++;
+    }
+    if (count == passengers.size()) return;
     for (size_t i = 0; i < metros.size(); i++) {
         if (glm::length(glm::vec2(metros[i].location[0], metros[i].location[1])
                             - glm::vec2(locations[metros[i].GetNextStop()][0], locations[metros[i].GetNextStop()][1]))

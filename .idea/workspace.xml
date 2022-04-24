@@ -11,7 +11,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="various destinations for each passenger">
+    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="new layout, styling">
+      <change afterPath="$PROJECT_DIR$/include/json.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/items.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/metros.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/stations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
@@ -19,10 +23,8 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/brain.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brain.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/brain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/brain.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/temp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/temp.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +97,7 @@
       <workItem from="1650291525029" duration="13014000" />
       <workItem from="1650406760639" duration="5000" />
       <workItem from="1650734256419" duration="6686000" />
-      <workItem from="1650772825043" duration="12368000" />
+      <workItem from="1650772825043" duration="18770000" />
     </task>
     <task id="LOCAL-00001" summary="set up simulator.h, simulator.cpp, render window">
       <created>1649801345562</created>
@@ -139,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650814279420</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="new layout, styling">
+      <created>1650824352240</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1650824352240</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,6 +174,7 @@
     <MESSAGE value="passenger logic" />
     <MESSAGE value="dijkstra for opitimizing routes" />
     <MESSAGE value="various destinations for each passenger" />
-    <option name="LAST_COMMIT_MESSAGE" value="various destinations for each passenger" />
+    <MESSAGE value="new layout, styling" />
+    <option name="LAST_COMMIT_MESSAGE" value="new layout, styling" />
   </component>
 </project>

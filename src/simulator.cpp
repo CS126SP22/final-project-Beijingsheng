@@ -2,8 +2,7 @@
 // Created by clark on 2022/4/12.
 //
 #include "../include/simulator.h"
-#include <stdlib.h>
-#include <time.h>
+#include "json.hpp"
 
 namespace minimetro {
 
@@ -16,88 +15,64 @@ MiniMetroApp::MiniMetroApp() {
     std::vector<Passenger> passengers;
     std::vector<int> destination;
 
-    std::vector<float> l1 {200, 200};
-    std::vector<float> l2 {300, 200};
-    std::vector<float> l3 {400, 200};
-    std::vector<float> l4 {500, 200};
-    std::vector<float> l5 {500, 300};
-    std::vector<float> l6 {500, 400};
-    std::vector<float> l7 {500, 500};
-    std::vector<float> l8 {400, 500};
-    std::vector<float> l9 {300, 500};
-    std::vector<float> l10 {200, 500};
-    std::vector<float> l11 {200, 400};
-    std::vector<float> l12 {200, 300};
-    locations.push_back(l1);
-    locations.push_back(l2);
-    locations.push_back(l3);
-    locations.push_back(l4);
-    locations.push_back(l5);
-    locations.push_back(l6);
-    locations.push_back(l7);
-    locations.push_back(l8);
-    locations.push_back(l9);
-    locations.push_back(l10);
-    locations.push_back(l11);
-    locations.push_back(l12);
+    std::ifstream stations_file("/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/stations.json");
 
-    std::vector<int> c1 {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-    std::vector<int> c2 {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0};
-    std::vector<int> c3 {0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0};
-    std::vector<int> c4 {0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0};
-    std::vector<int> c5 {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1};
-    std::vector<int> c6 {0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0};
-    std::vector<int> c7 {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0};
-    std::vector<int> c8 {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0};
-    std::vector<int> c9 {0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0};
-    std::vector<int> c10 {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0};
-    std::vector<int> c11 {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1};
-    std::vector<int> c12 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
-
-
-    connections.push_back(c1);
-    connections.push_back(c2);
-    connections.push_back(c3);
-    connections.push_back(c4);
-    connections.push_back(c5);
-    connections.push_back(c6);
-    connections.push_back(c7);
-    connections.push_back(c8);
-    connections.push_back(c9);
-    connections.push_back(c10);
-    connections.push_back(c11);
-    connections.push_back(c12);
-
-    std::vector<int> r1;
-    std::vector<int> r2 {0};
-    for (int i = 0; i < 12; i++) {
-    r1.push_back(i);
-    r2.push_back(11 - i);
-    }
-    r1.push_back(0);
-    Metro m1 = Metro( r1, ci::Color("black"));
-    Metro m2 = Metro(r2, ci::Color("brown"));
-    Metro m3 = Metro(std::vector<int> {1, 8, 1}, ci::Color("blue"));
-    Metro m4 = Metro(std::vector<int> {7, 2, 7}, ci::Color("yellow"));
-    Metro m5 = Metro(std::vector<int> {4, 11, 4}, ci::Color("pink"));
-    Metro m6 = Metro(std::vector<int> {10, 5, 10}, ci::Color("orange"));
-    metros.push_back(m1);
-    metros.push_back(m2);
-    metros.push_back(m3);
-    //    metros.push_back(m4);
-    metros.push_back(m5);
-    metros.push_back(m6);
-
-    for (int i = 0; i < 30; i++) {
-        passengers.push_back(Passenger(i % 4, ci::Color("gray")));
-        destination.push_back(i % 4 + 6);
+    nlohmann::json stations_json;
+    stations_file >> stations_json;
+    int num_station = stations_json.begin()->size();
+    for (nlohmann::json::iterator it = stations_json.begin()->begin(); it != stations_json.begin()->end(); ++it) {
+        std::vector<int> temp{};
+        for (int j = 0; j < num_station; j++) temp.push_back(0);
+        for (int i = 0; i < it->begin().value().size(); i++) {
+            temp[int(it->begin().value()[i]) - 1] = 1;
+        }
+        for (int k = 0; k < temp.size(); k++) {
+            std::cout << temp[k] << " ";
+        }
+        std::cout << std::endl;
+        connections.push_back(temp);
+        nlohmann::json::iterator it_temp = it->begin();
+        it_temp ++;
+        std::vector<float> temp2;
+        temp2.push_back(it_temp.value());
+        it_temp ++;
+        temp2.push_back(it_temp.value());
+        locations.push_back(temp2);
     }
 
-    // PRINT DESTINATIONS
-//    for (int i = 0; i < destination.size(); i++) {
-//        std::cout << destination[i] << " ";
-//    }
-//    std::cout << std::endl;
+    std::ifstream metros_file("/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/metros.json");
+
+    nlohmann::json metros_json;
+    metros_file >> metros_json;
+
+    for (nlohmann::json::iterator it = metros_json.begin()->begin(); it != metros_json.begin()->end(); ++it) {
+        nlohmann::json::iterator temp = it->begin();
+        temp ++;
+        std::vector<int> temp_route{};
+        for (int i = 0; i < temp.value().size(); i++) {
+            temp_route.push_back(temp.value()[i]);
+        }
+        std::string c = it->begin().value();
+        char* co = const_cast<char*>(c.c_str());
+        metros.push_back(Metro(temp_route, ci::Color(co)));
+    }
+
+    std::ifstream items_file("/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/items.json");
+
+    nlohmann::json items_json;
+    items_file >> items_json;
+
+    for (nlohmann::json::iterator it = items_json.begin()->begin(); it != items_json.begin()->end(); ++it) {
+        std::string c = it->begin().value();
+        char* co = const_cast<char*>(c.c_str());
+        nlohmann::json::iterator temp = it->begin();
+        temp ++;
+        int d = temp.value();
+        temp ++;
+        int start = temp.value();
+        passengers.push_back(Passenger(start, ci::Color(co)));
+        destination.push_back(d);
+    }
 
     brain_ = Brain(locations, connections, metros, 12, passengers, destination);
 }

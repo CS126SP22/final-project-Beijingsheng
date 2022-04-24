@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "start": 0,
+      "destination": 2,
+      "color": "blue"
+    },
+    {
+      "start": 0,
+      "destination": 2,
+      "color": "red"
+    }
+  ]
+}
