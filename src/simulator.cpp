@@ -77,7 +77,7 @@ MiniMetroApp::MiniMetroApp() {
 }
 
 void MiniMetroApp::MusicPlayer() {
-    std::cout << "play background music" << std::endl;
+
 }
 
 void MiniMetroApp::mouseDown(ci::app::MouseEvent event) {
@@ -98,6 +98,12 @@ void MiniMetroApp::draw() {
     ci::gl::color(ci::Color("gray"));
     r.set(592, 72, 808, 88);
     ci::gl::drawSolidRoundedRect(r, 5, 0, glm::vec2(600, 75), glm::vec2(800, 85));
+
+    ci::Rectf r2;
+    ci::gl::color(ci::Color(0.78, 0.86, 1));
+    r2.set(592, 112, 682, 145);
+    ci::gl::drawSolidRoundedRect(r2, 5, 0, glm::vec2(600, 75), glm::vec2(800, 85));
+    ci::gl::drawStringCentered("|►", vec2(637, 127), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 20));
 
     brain_.Display();
 }

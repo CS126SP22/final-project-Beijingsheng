@@ -14,6 +14,7 @@ Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<
              std::vector<Passenger> passengers, std::vector<int> d) {
     //locations for all station
     this->locations = locations;
+    this->onPause = false;
     //connections between stations
     this->connections = connections;
     //station radius on graph
@@ -149,8 +150,8 @@ void Brain::DisplayTourists() {
 
     for (size_t i = 0; i < passengers.size(); i++) {
         if (passengers[i].on_metro != -1) {
-            passenger_locations[i][0] = metros[passengers[i].on_metro].location[0] - station_radius_ * 1.2;
-            passenger_locations[i][1] = metros[passengers[i].on_metro].location[1] - station_radius_ * 1.2;
+            passenger_locations[i][0] = metros[passengers[i].on_metro].location[0];
+            passenger_locations[i][1] = metros[passengers[i].on_metro].location[1];
             ci::gl::color(passengers[i].color);
             ci::gl::drawSolidCircle(glm::vec2(passenger_locations[i][0], passenger_locations[i][1]), station_radius_ * 0.6);
         }
@@ -260,18 +261,20 @@ void Brain::UpdateDriving(int i) {
 }
 
 void Brain::AdvanceOneFrame() {
-    int count = 0;
-    for (size_t i = 0; i < passengers.size(); i++) {
-        if (passengers[i].cur_stop == destination[i]) count ++;
-    }
-    if (count == passengers.size()) return;
-    for (size_t i = 0; i < metros.size(); i++) {
-        if (glm::length(glm::vec2(metros[i].location[0], metros[i].location[1])
+    if (!onPause) {
+        int count = 0;
+        for (size_t i = 0; i < passengers.size(); i++) {
+            if (passengers[i].cur_stop == destination[i]) count ++;
+        }
+        if (count == passengers.size()) return;
+        for (size_t i = 0; i < metros.size(); i++) {
+            if (glm::length(glm::vec2(metros[i].location[0], metros[i].location[1])
                             - glm::vec2(locations[metros[i].GetNextStop()][0], locations[metros[i].GetNextStop()][1]))
-                            < station_radius_ * 0.2) {
-            UpdateArriving(i);
-        } else {
-            UpdateDriving(i);
+                < station_radius_ * 0.2) {
+                UpdateArriving(i);
+            } else {
+                UpdateDriving(i);
+            }
         }
     }
 }
@@ -279,6 +282,12 @@ void Brain::AdvanceOneFrame() {
 void Brain::HandleBrush(const vec2 &vec) {
     if (vec[0] >= 600 && vec[0] <= 800 && vec[1] >= 75 && vec[1] <= 85) {
         this->speed = 1.2 + 3.8 * (vec[0] - 600) / 200;
+        return;
+    }
+
+    //Handle randomly add item
+    if (vec[0] >= 592 && vec[0] <= 682 && vec[1] >= 112 && vec[1] <= 145) {
+        onPause = !onPause;
         return;
     }
 

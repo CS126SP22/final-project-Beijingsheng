@@ -45,6 +45,7 @@ private:
     std::vector<std::vector<int>> connections;
     int station_radius_;
     int steps_needed;
+    bool onPause;
     float speed;
     std::string message;
     std::vector<Metro> metros;
