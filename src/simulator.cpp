@@ -25,7 +25,7 @@ MiniMetroApp::MiniMetroApp() {
         std::vector<int> temp{};
         for (int j = 0; j < num_station; j++) temp.push_back(0);
         for (int i = 0; i < it->begin().value().size(); i++) {
-            temp[int(it->begin().value()[i]) - 1] = 1;
+            temp[int(it->begin().value()[i])] = 1;
         }
         connections.push_back(temp);
         nlohmann::json::iterator it_temp = it->begin();
@@ -77,7 +77,7 @@ MiniMetroApp::MiniMetroApp() {
 }
 
 void MiniMetroApp::MusicPlayer() {
-
+    std::cout << "play background music" << std::endl;
 }
 
 void MiniMetroApp::mouseDown(ci::app::MouseEvent event) {

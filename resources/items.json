@@ -2,13 +2,58 @@
   "data": [
     {
       "start": 0,
-      "destination": 2,
+      "destination": 6,
       "color": "blue"
     },
     {
-      "start": 0,
-      "destination": 2,
+      "start": 1,
+      "destination": 6,
       "color": "red"
+    },
+    {
+      "start": 2,
+      "destination": 6,
+      "color": "blue"
+    },
+    {
+      "start": 3,
+      "destination": 6,
+      "color": "red"
+    },
+    {
+      "start": 4,
+      "destination": 6,
+      "color": "blue"
+    },
+    {
+      "start": 5,
+      "destination": 6,
+      "color": "red"
+    },
+    {
+      "start": 6,
+      "destination": 6,
+      "color": "blue"
+    },
+    {
+      "start": 7,
+      "destination": 6,
+      "color": "red"
+    },
+    {
+      "start": 8,
+      "destination": 6,
+      "color": "blue"
+    },
+    {
+      "start": 9,
+      "destination": 6,
+      "color": "red"
+    },
+    {
+      "start": 10,
+      "destination": 6,
+      "color": "blue"
     }
   ]
 }

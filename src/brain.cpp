@@ -140,9 +140,9 @@ void Brain::DisplayTourists() {
             else
                 ci::gl::color(ci::Color("green"));
             if (passengers[platform[i][j]].on_metro == -1) {
-                passenger_locations[platform[i][j]][0] = locations[passengers[platform[i][j]].cur_stop][0] - (j + 1.8) * station_radius_ * 1.2;
-                passenger_locations[platform[i][j]][1] = locations[passengers[platform[i][j]].cur_stop][1] - (j + 1.8) * station_radius_ * 1.2;
-                ci::gl::drawSolidCircle(glm::vec2(passenger_locations[platform[i][j]][0], passenger_locations[platform[i][j]][1]), station_radius_ * 0.7);
+                passenger_locations[platform[i][j]][0] = locations[passengers[platform[i][j]].cur_stop][0] - (j + 1.8) * station_radius_ * 0.9;
+                passenger_locations[platform[i][j]][1] = locations[passengers[platform[i][j]].cur_stop][1] - (j + 1.8) * station_radius_ * 0.9;
+                ci::gl::drawSolidCircle(glm::vec2(passenger_locations[platform[i][j]][0], passenger_locations[platform[i][j]][1]), station_radius_ * 0.6);
             }
         }
     }
