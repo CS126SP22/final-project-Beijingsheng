@@ -27,10 +27,6 @@ MiniMetroApp::MiniMetroApp() {
         for (int i = 0; i < it->begin().value().size(); i++) {
             temp[int(it->begin().value()[i]) - 1] = 1;
         }
-        for (int k = 0; k < temp.size(); k++) {
-            std::cout << temp[k] << " ";
-        }
-        std::cout << std::endl;
         connections.push_back(temp);
         nlohmann::json::iterator it_temp = it->begin();
         it_temp ++;
@@ -76,6 +72,14 @@ MiniMetroApp::MiniMetroApp() {
     }
 
     brain_ = Brain(locations, connections, metros, 12, passengers, destination);
+}
+
+void MiniMetroApp::mouseDown(ci::app::MouseEvent event) {
+    brain_.HandleBrush(event.getPos());
+}
+
+void MiniMetroApp::mouseDrag(ci::app::MouseEvent event) {
+    brain_.HandleBrush(event.getPos());
 }
 
 void MiniMetroApp::draw() {

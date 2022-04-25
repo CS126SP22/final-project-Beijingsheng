@@ -16,6 +16,8 @@ public:
 
     void draw() override;
     void update() override;
+    void mouseDown(ci::app::MouseEvent event) override;
+    void mouseDrag(ci::app::MouseEvent event) override;
 
     const int kWindowSize = 875;
 

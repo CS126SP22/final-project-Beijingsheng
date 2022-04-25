@@ -19,6 +19,8 @@ public:
           std::vector<Passenger> passengers, std::vector<int> d);
     void Display();
     void AdvanceOneFrame();
+    void HandleBrush(const vec2& vec);
+
 
 private:
     void DisplayConnections();
@@ -35,18 +37,21 @@ private:
 
     void OnBoard(int metro, int station);
     void OffBoard(int metro, int station);
-
     std::vector<int> destination;
-
+    std::vector<std::vector<int>> passenger_locations;
     std::vector<std::vector<int>> platform;
     std::vector<std::vector<float>> locations;
     std::vector<std::vector<int>> connections;
     int station_radius_;
     int steps_needed;
+    std::string message;
     std::vector<Metro> metros;
     std::vector<Passenger> passengers;
     Dijkstra dijkstra;
     std::vector<std::vector<int>> heights;
+    std::vector<int> init_heights;
+    std::vector<int> visitor_counts;
+    std::vector<int> carry_counts;
 };
 
 }
