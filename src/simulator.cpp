@@ -71,7 +71,13 @@ MiniMetroApp::MiniMetroApp() {
         destination.push_back(d);
     }
 
+    MusicPlayer();
+
     brain_ = Brain(locations, connections, metros, 12, passengers, destination);
+}
+
+void MiniMetroApp::MusicPlayer() {
+
 }
 
 void MiniMetroApp::mouseDown(ci::app::MouseEvent event) {
@@ -85,6 +91,14 @@ void MiniMetroApp::mouseDrag(ci::app::MouseEvent event) {
 void MiniMetroApp::draw() {
     ci::Color background_color(0.92, 0.92, 0.92);
     ci::gl::clear(background_color);
+
+    ci::gl::drawStringCentered("speed", vec2(630, 50), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 20));
+
+    ci::Rectf r;
+    ci::gl::color(ci::Color("gray"));
+    r.set(592, 72, 808, 88);
+    ci::gl::drawSolidRoundedRect(r, 5, 0, glm::vec2(600, 75), glm::vec2(800, 85));
+
     brain_.Display();
 }
 

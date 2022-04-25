@@ -19,6 +19,8 @@ public:
     void mouseDown(ci::app::MouseEvent event) override;
     void mouseDrag(ci::app::MouseEvent event) override;
 
+    void MusicPlayer();
+
     const int kWindowSize = 875;
 
 private:

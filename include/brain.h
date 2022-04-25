@@ -28,6 +28,7 @@ private:
     void DisplayMetros();
     void DisplayTourists();
     void DisplayInformation();
+    void DisplaySpeedControl();
     void InitMetro();
     void InitPassengers();
     Dijkstra InitDijkstra();
@@ -44,6 +45,7 @@ private:
     std::vector<std::vector<int>> connections;
     int station_radius_;
     int steps_needed;
+    float speed;
     std::string message;
     std::vector<Metro> metros;
     std::vector<Passenger> passengers;

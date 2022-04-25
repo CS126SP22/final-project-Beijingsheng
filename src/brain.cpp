@@ -28,6 +28,7 @@ Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<
     this->dijkstra = Dijkstra(InitDijkstra());
 
     this->steps_needed = 0;
+    this->speed = 1.2;
 
     for (size_t i = 0; i < locations.size(); i++) {
         std::vector<int> p;
@@ -161,8 +162,8 @@ void Brain::DisplayInformation() {
     for (int i = 0; i < passengers.size(); i++) {
         temp += heights[i][passengers[i].cur_stop];
     }
-    ci::gl::drawStringCentered(std::to_string(steps_needed - temp) + "/" + std::to_string(steps_needed), vec2(50, 50), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 30));
-    ci::gl::drawStringCentered(message , vec2(300, 50), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 18));
+    ci::gl::drawStringCentered(std::to_string(steps_needed - temp) + "/" + std::to_string(steps_needed), vec2(50, 80), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 30));
+    ci::gl::drawStringCentered(message , vec2(300, 80), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 18));
 
 }
 
@@ -172,6 +173,15 @@ void Brain::Display() {
     DisplayMetros();
     DisplayTourists();
     DisplayInformation();
+    DisplaySpeedControl();
+}
+
+void Brain::DisplaySpeedControl() {
+    ci::Rectf r;
+    ci::gl::color(ci::Color(0.96, 1, 0.67));
+    int temp = ((this->speed - 1.2) / 3.8) * 200;
+    r.set(600 + temp - 5, 75, 600 + temp + 5, 85);
+    ci::gl::drawSolidRoundedRect(r, 5, 0, glm::vec2(600, 75), glm::vec2(800, 85));
 }
 
 //logic to decide if pick up a passenger when metro i enters station station
@@ -245,8 +255,8 @@ void Brain::UpdateDriving(int i) {
     float x1 = locations[metros[i].route[metros[i].next_stop_idx]][1] - metros[i].location[1];
     float x2 = locations[metros[i].route[metros[i].next_stop_idx]][0] - metros[i].location[0];
     float x3 = sqrt(x1 * x1 + x2 * x2);
-    metros[i].location[0] += 1.2 * x2 / x3;
-    metros[i].location[1] += 1.2 * x1 / x3;
+    metros[i].location[0] += speed * x2 / x3;
+    metros[i].location[1] += speed * x1 / x3;
 }
 
 void Brain::AdvanceOneFrame() {
@@ -267,6 +277,11 @@ void Brain::AdvanceOneFrame() {
 }
 
 void Brain::HandleBrush(const vec2 &vec) {
+    if (vec[0] >= 600 && vec[0] <= 800 && vec[1] >= 75 && vec[1] <= 85) {
+        this->speed = 1.2 + 3.8 * (vec[0] - 600) / 200;
+        return;
+    }
+
     for (int i = 0; i < passengers.size(); i++) {
         if ((vec[0] - passenger_locations[i][0]) * (vec[0] - passenger_locations[i][0])
             + (vec[1] - passenger_locations[i][1]) * (vec[1] - passenger_locations[i][1])
