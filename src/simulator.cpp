@@ -73,7 +73,7 @@ MiniMetroApp::MiniMetroApp() {
 
     MusicPlayer();
 
-    brain_ = Brain(locations, connections, metros, 12, passengers, destination);
+    brain_ = Brain(locations, connections, metros, 12, passengers, destination, kWindowSize);
 }
 
 void MiniMetroApp::MusicPlayer() {

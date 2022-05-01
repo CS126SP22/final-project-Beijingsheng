@@ -16,7 +16,8 @@ public:
     Brain();
     Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<int>> connections,
           std::vector<Metro> metros, int station_radius,
-          std::vector<Passenger> passengers, std::vector<int> d);
+          std::vector<Passenger> passengers, std::vector<int> d,
+          int kWindowSize);
     void Display();
     void AdvanceOneFrame();
     void HandleBrush(const vec2& vec);
@@ -29,6 +30,7 @@ private:
     void DisplayTourists();
     void DisplayInformation();
     void DisplaySpeedControl();
+    void DisplayScrollBars();
     void InitMetro();
     void InitPassengers();
     Dijkstra InitDijkstra();
@@ -45,6 +47,11 @@ private:
     std::vector<std::vector<int>> connections;
     int station_radius_;
     int steps_needed;
+    int kWindowSize;
+    float top_;
+    float y_scroll_;
+    float x_scroll_;
+    float left_;
     bool onPause;
     float speed;
     std::string message;

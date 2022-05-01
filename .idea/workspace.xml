@@ -11,9 +11,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="pause / resume button">
+    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="final push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/brain.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/brain.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/brain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/brain.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,11 +75,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="mini-metro" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="final_project_Beijingsheng" TARGET_NAME="mini-metro" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="final_project_Beijingsheng" RUN_TARGET_NAME="mini-metro">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -102,6 +106,9 @@
       <workItem from="1650849740977" duration="117000" />
       <workItem from="1650908062956" duration="34000" />
       <workItem from="1651024803508" duration="180000" />
+      <workItem from="1651109999169" duration="242000" />
+      <workItem from="1651417184881" duration="1517000" />
+      <workItem from="1651420570146" duration="2396000" />
     </task>
     <task id="LOCAL-00001" summary="set up simulator.h, simulator.cpp, render window">
       <created>1649801345562</created>
@@ -194,7 +201,21 @@
       <option name="project" value="LOCAL" />
       <updated>1650918902080</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="inal push">
+      <created>1651025058741</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1651025058741</updated>
+    </task>
+    <task id="LOCAL-00015" summary="final push">
+      <created>1651025067095</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1651025067095</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,6 +248,8 @@
     <MESSAGE value="speed control bar" />
     <MESSAGE value="2nd example" />
     <MESSAGE value="pause / resume button" />
-    <option name="LAST_COMMIT_MESSAGE" value="pause / resume button" />
+    <MESSAGE value="inal push" />
+    <MESSAGE value="final push" />
+    <option name="LAST_COMMIT_MESSAGE" value="final push" />
   </component>
 </project>

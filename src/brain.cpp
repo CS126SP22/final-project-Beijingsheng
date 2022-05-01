@@ -11,10 +11,16 @@ Brain::Brain() {}
 
 Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<int>> connections,
              std::vector<Metro> metros, int station_radius,
-             std::vector<Passenger> passengers, std::vector<int> d) {
+             std::vector<Passenger> passengers, std::vector<int> d,
+             int kWindowSize) {
+    this->kWindowSize = kWindowSize;
+    this->top_ = 100;
+    this->left_ = 100;
+    this->y_scroll_ = 100;
+    this->x_scroll_ = 100;
     //locations for all station
     this->locations = locations;
-    this->onPause = false;
+    this->onPause = true;
     //connections between stations
     this->connections = connections;
     //station radius on graph
@@ -86,9 +92,9 @@ void Brain::DisplayConnections() {
         for (unsigned int j = i + 1; j < connections.size(); j++) {
             if (connections[i][j] == 1) {
                 ci::gl::color(ci::Color("black"));
-                ci::gl::drawLine(glm::vec2(locations[i][0] + station_radius_ * 0.5, locations[i][1] + station_radius_ * 0.5), glm::vec2(locations[j][0] + station_radius_ * 0.5, locations[j][1] + station_radius_ * 0.5));
+                ci::gl::drawLine(glm::vec2(left_ + locations[i][0] + station_radius_ * 0.5, top_ + locations[i][1] + station_radius_ * 0.5), glm::vec2(left_ + locations[j][0] + station_radius_ * 0.5, top_ + locations[j][1] + station_radius_ * 0.5));
                 ci::gl::color(ci::Color("black"));
-                ci::gl::drawLine(glm::vec2(locations[i][0] - station_radius_ * 0.5, locations[i][1] - station_radius_ * 0.5), glm::vec2(locations[j][0] - station_radius_ * 0.5, locations[j][1] - station_radius_ * 0.5));
+                ci::gl::drawLine(glm::vec2(left_ + locations[i][0] - station_radius_ * 0.5, top_ + locations[i][1] - station_radius_ * 0.5), glm::vec2(left_ + locations[j][0] - station_radius_ * 0.5, top_ + locations[j][1] - station_radius_ * 0.5));
             }
         }
     }
@@ -98,8 +104,8 @@ void Brain::DisplayStations() {
     for (unsigned int i = 0; i < locations.size(); i++) {
         ci::Rectf r;
         ci::gl::color(ci::Color("gray"));
-        r.set(locations[i][0] - station_radius_ * 1.5 + 4, locations[i][1] - station_radius_ * 1.5 + 4, locations[i][0] + station_radius_ * 1.5 + 4, locations[i][1] + station_radius_ * 1.5 + 4);
-        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
+        r.set(left_ + locations[i][0] - station_radius_ * 1.5 + 4, top_ + locations[i][1] - station_radius_ * 1.5 + 4, left_ + locations[i][0] + station_radius_ * 1.5 + 4, top_ + locations[i][1] + station_radius_ * 1.5 + 4);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(left_ + locations[i][0] - station_radius_, top_ + locations[i][1] - station_radius_), glm::vec2(left_ + locations[i][0] + station_radius_, top_ + locations[i][1] + station_radius_));
 
         if (platform[i].size() == 0)
             ci::gl::color(ci::Color(0.31, 1, 0.39));
@@ -107,20 +113,20 @@ void Brain::DisplayStations() {
             ci::gl::color(ci::Color(1, 0.87, 0.58));
         else if (platform[i].size() >= 2)
             ci::gl::color(ci::Color(1, 0.59, 0.59));
-        r.set(locations[i][0] - station_radius_ * 1.5, locations[i][1] - station_radius_ * 1.5, locations[i][0] + station_radius_ * 1.5, locations[i][1] + station_radius_ * 1.5);
-        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
+        r.set(left_ + locations[i][0] - station_radius_ * 1.5, top_ + locations[i][1] - station_radius_ * 1.5, left_ + locations[i][0] + station_radius_ * 1.5, top_ + locations[i][1] + station_radius_ * 1.5);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(left_ + locations[i][0] - station_radius_, top_ + locations[i][1] - station_radius_), glm::vec2(left_ + locations[i][0] + station_radius_, top_ + locations[i][1] + station_radius_));
 
         ci::gl::color(ci::Color("white"));
-        r.set(locations[i][0] - station_radius_ - 0.5, locations[i][1] - station_radius_ - 0.5, locations[i][0] + station_radius_ + 2, locations[i][1] + station_radius_ + 2);
-        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
+        r.set(left_ + locations[i][0] - station_radius_ - 0.5, top_ + locations[i][1] - station_radius_ - 0.5, left_ + locations[i][0] + station_radius_ + 2, top_ + locations[i][1] + station_radius_ + 2);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(left_ +locations[i][0] - station_radius_, top_ + locations[i][1] - station_radius_), glm::vec2(left_ + locations[i][0] + station_radius_, top_ + locations[i][1] + station_radius_));
         if (platform[i].size() == 0)
             ci::gl::color(ci::Color(0.31, 1, 0.39));
         else if (platform[i].size() == 1)
             ci::gl::color(ci::Color(1, 0.87, 0.58));
         else if (platform[i].size() >= 2)
             ci::gl::color(ci::Color(1, 0.59, 0.59));
-        r.set(locations[i][0] - station_radius_, locations[i][1] - station_radius_, locations[i][0] + station_radius_, locations[i][1] + station_radius_);
-        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(locations[i][0] - station_radius_, locations[i][1] - station_radius_), glm::vec2(locations[i][0] + station_radius_, locations[i][1] + station_radius_));
+        r.set(left_ + locations[i][0] - station_radius_, top_ + locations[i][1] - station_radius_, left_ + locations[i][0] + station_radius_, top_ + locations[i][1] + station_radius_);
+        ci::gl::drawSolidRoundedRect(r, 4, 0, glm::vec2(left_ + locations[i][0] - station_radius_, top_ + locations[i][1] - station_radius_), glm::vec2(left_ + locations[i][0] + station_radius_, top_ + locations[i][1] + station_radius_));
     }
 }
 
@@ -128,7 +134,7 @@ void Brain::DisplayMetros() {
     for (unsigned int i = 0; i < metros.size(); i++) {
         ci::gl::color(metros[i].color);
         ci::Rectf r;
-        r.set(metros[i].location[0] - station_radius_ * 0.9, metros[i].location[1] - station_radius_ * 0.9, metros[i].location[0] + station_radius_ * 0.9, metros[i].location[1] + station_radius_ * 0.9);
+        r.set(left_ + metros[i].location[0] - station_radius_ * 0.9, top_ + metros[i].location[1] - station_radius_ * 0.9, left_ + metros[i].location[0] + station_radius_ * 0.9, top_ + metros[i].location[1] + station_radius_ * 0.9);
         ci::gl::drawSolidRect(r);
     }
 }
@@ -141,8 +147,8 @@ void Brain::DisplayTourists() {
             else
                 ci::gl::color(ci::Color("green"));
             if (passengers[platform[i][j]].on_metro == -1) {
-                passenger_locations[platform[i][j]][0] = locations[passengers[platform[i][j]].cur_stop][0] - (j + 1.8) * station_radius_ * 0.9;
-                passenger_locations[platform[i][j]][1] = locations[passengers[platform[i][j]].cur_stop][1] - (j + 1.8) * station_radius_ * 0.9;
+                passenger_locations[platform[i][j]][0] = left_ + locations[passengers[platform[i][j]].cur_stop][0] - (j + 1.8) * station_radius_ * 0.9;
+                passenger_locations[platform[i][j]][1] = top_ + locations[passengers[platform[i][j]].cur_stop][1] - (j + 1.8) * station_radius_ * 0.9;
                 ci::gl::drawSolidCircle(glm::vec2(passenger_locations[platform[i][j]][0], passenger_locations[platform[i][j]][1]), station_radius_ * 0.6);
             }
         }
@@ -150,8 +156,8 @@ void Brain::DisplayTourists() {
 
     for (size_t i = 0; i < passengers.size(); i++) {
         if (passengers[i].on_metro != -1) {
-            passenger_locations[i][0] = metros[passengers[i].on_metro].location[0];
-            passenger_locations[i][1] = metros[passengers[i].on_metro].location[1];
+            passenger_locations[i][0] = left_ + metros[passengers[i].on_metro].location[0];
+            passenger_locations[i][1] = top_ + metros[passengers[i].on_metro].location[1];
             ci::gl::color(passengers[i].color);
             ci::gl::drawSolidCircle(glm::vec2(passenger_locations[i][0], passenger_locations[i][1]), station_radius_ * 0.6);
         }
@@ -163,7 +169,7 @@ void Brain::DisplayInformation() {
     for (int i = 0; i < passengers.size(); i++) {
         temp += heights[i][passengers[i].cur_stop];
     }
-    ci::gl::drawStringCentered(std::to_string(steps_needed - temp) + "/" + std::to_string(steps_needed), vec2(50, 80), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 30));
+    ci::gl::drawStringCentered(std::to_string(steps_needed - temp) + "/" + std::to_string(steps_needed), vec2(300, 30), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 30));
     ci::gl::drawStringCentered(message , vec2(300, 80), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 18));
 
 }
@@ -175,6 +181,21 @@ void Brain::Display() {
     DisplayTourists();
     DisplayInformation();
     DisplaySpeedControl();
+    DisplayScrollBars();
+}
+
+void Brain::DisplayScrollBars() {
+    ci::gl::color(ci::Color("gray"));
+    ci::Rectf r;
+    r.set(kWindowSize - 20, 80, kWindowSize, kWindowSize - 20);
+    ci::gl::drawSolidRect(r);
+    r.set(80, kWindowSize - 20, kWindowSize - 20, kWindowSize);
+    ci::gl::drawSolidRect(r);
+    ci::gl::color(ci::Color("white"));
+    r.set(kWindowSize - 20, y_scroll_ - 20, kWindowSize, y_scroll_ + 20);
+    ci::gl::drawSolidRoundedRect(r, 5, 0, glm::vec2(kWindowSize-20, 100 - (top_ * (kWindowSize - 125)) - 25), glm::vec2(kWindowSize, 100 - (top_ * (kWindowSize - 125)) + 25));
+    r.set(x_scroll_ - 20, kWindowSize - 20, x_scroll_ + 20, kWindowSize);
+    ci::gl::drawSolidRoundedRect(r, 5, 0, glm::vec2(kWindowSize-20, 100 - (top_ * (kWindowSize - 125)) - 25), glm::vec2(kWindowSize, 100 - (top_ * (kWindowSize - 125)) + 25));
 }
 
 void Brain::DisplaySpeedControl() {
@@ -280,6 +301,18 @@ void Brain::AdvanceOneFrame() {
 }
 
 void Brain::HandleBrush(const vec2 &vec) {
+    if (vec[0] > kWindowSize - 20 && vec[1] > 100 && vec[0] < kWindowSize && vec[1] < kWindowSize - 40) {
+        top_ = 100 - 800 * (vec[1] - 100)/(kWindowSize - 145);
+        y_scroll_ = vec[1];
+        return;
+    }
+
+    if (vec[0] > 100 && vec[1] > kWindowSize - 20 && vec[0] < kWindowSize - 40 && vec[1] < kWindowSize) {
+        left_ = 100 - 800 * (vec[0] - 100)/(kWindowSize - 145);
+        x_scroll_ = vec[0];
+        return;
+    }
+
     if (vec[0] >= 600 && vec[0] <= 800 && vec[1] >= 75 && vec[1] <= 85) {
         this->speed = 1.2 + 3.8 * (vec[0] - 600) / 200;
         return;
@@ -305,8 +338,8 @@ void Brain::HandleBrush(const vec2 &vec) {
     }
 
     for (int i = 0; i < locations.size(); i++) {
-        if (abs(vec[0] - locations[i][0]) <= station_radius_) {
-            if (abs(vec[1] - locations[i][1]) <= station_radius_) {
+        if (abs(vec[0] - left_ - locations[i][0]) <= station_radius_) {
+            if (abs(vec[1] - top_ - locations[i][1]) <= station_radius_) {
                 message = "Station " + std::to_string(i) + " has been visited " + std::to_string(visitor_counts[i]) + " times.";
                 break;
             }
@@ -314,8 +347,8 @@ void Brain::HandleBrush(const vec2 &vec) {
     }
 
     for (int i = 0; i < metros.size(); i++) {
-        if (abs(vec[0] - metros[i].location[0]) <= station_radius_ * 0.9) {
-            if (abs(vec[1] - metros[i].location[1]) <= station_radius_ * 0.9) {
+        if (abs(vec[0] - left_ - metros[i].location[0]) <= station_radius_ * 0.9) {
+            if (abs(vec[1] - top_ - metros[i].location[1]) <= station_radius_ * 0.9) {
                 message = "Metro " + std::to_string(i) + " has carried items " + std::to_string(carry_counts[i]) + " times.";
                 break;
             }
