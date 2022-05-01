@@ -12,18 +12,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="set up testing">
-      <change afterPath="$PROJECT_DIR$/include/Google C++ Style Guide.pdf" afterDir="false" />
+    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="commenting and refactoring simulator.h and simulator.cpp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/simulator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/simulator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/brain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/brain.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +126,7 @@
       <workItem from="1651424343007" duration="21000" />
       <workItem from="1651424391740" duration="122000" />
       <workItem from="1651424529451" duration="17000" />
-      <workItem from="1651424556512" duration="5136000" />
+      <workItem from="1651424556512" duration="5810000" />
     </task>
     <task id="LOCAL-00001" summary="set up simulator.h, simulator.cpp, render window">
       <created>1649801345562</created>
@@ -251,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651426761285</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="commenting and refactoring simulator.h and simulator.cpp">
+      <created>1651431491458</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1651431491458</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +291,7 @@
     <MESSAGE value="final push" />
     <MESSAGE value="scroll bar" />
     <MESSAGE value="set up testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="set up testing" />
+    <MESSAGE value="commenting and refactoring simulator.h and simulator.cpp" />
+    <option name="LAST_COMMIT_MESSAGE" value="commenting and refactoring simulator.h and simulator.cpp" />
   </component>
 </project>

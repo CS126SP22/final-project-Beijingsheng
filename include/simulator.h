@@ -20,7 +20,7 @@ public:
 private:
     const int kWindowSize = 875;
     const std::string kFileStationsLocation = "/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/stations.json";
-    const std::string kFileMetrosLocation = "/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/metros_.json";
+    const std::string kFileMetrosLocation = "/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/metros.json";
     const std::string kFileItemsLocation = "/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/items.json";
 
     void readDataItems();
