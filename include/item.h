@@ -9,9 +9,9 @@ using glm::vec2;
 
 namespace minimetro {
 
-    class Passenger {
+    class Item {
     public:
-        Passenger(int start_station, ci::Color color);
+        Item(int start_station, ci::Color color);
         int stop_visited;
         int cur_stop;
         ci::Color color;

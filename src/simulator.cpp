@@ -16,7 +16,7 @@ MiniMetroApp::MiniMetroApp() {
 }
 
 /**
- * Read data of stations, including each station's location and their connections,
+ * Read data of stations, including each station's location and their station_connections_,
  * from kFileStationsLocation
  */
 void MiniMetroApp::readDataStations() {
@@ -74,7 +74,7 @@ void MiniMetroApp::readDataItems() {
         int d = temp.value();
         temp ++;
         int start = temp.value();
-        items_.push_back(Passenger(start, ci::Color(co)));
+        items_.push_back(Item(start, ci::Color(co)));
         destinations_.push_back(d);
     }
 }
@@ -96,7 +96,7 @@ void MiniMetroApp::mouseDrag(ci::app::MouseEvent event) {
 }
 
 /**
- * Draw background, speed control panel, and visualize brain data
+ * Draw background, speed_ control panel, and visualize brain data
  */
 void MiniMetroApp::draw() {
     ci::Color background_color(0.92, 0.92, 0.92);
@@ -106,10 +106,10 @@ void MiniMetroApp::draw() {
 }
 
 /**
- * Draw speed control panel, including title, slider, and pause button
+ * Draw speed_ control panel, including title, slider, and pause button
  */
 void MiniMetroApp::drawSpeedControlPanel() {
-    ci::gl::drawStringCentered("speed", vec2(630, 50), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 20));
+    ci::gl::drawStringCentered("speed_", vec2(630, 50), ci::ColorA(0, 0, 0, 1), ci::Font("helvetica", 20));
     ci::Rectf r, r2;
     ci::gl::color(ci::Color("gray"));
     r.set(592, 72, 808, 88);

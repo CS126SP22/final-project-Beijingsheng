@@ -6811,7 +6811,7 @@ class lexer : public lexer_base<BasicJsonType>
 
     Adds the current byte and, for each passed range, reads a new byte and
     checks if it is inside the range. If a violation was detected, set up an
-    error message and return false. Otherwise, return true.
+    error message_ and return false. Otherwise, return true.
 
     @param[in] ranges  list of integers; interpreted as list of pairs of
                        inclusive lower and upper bound, respectively
@@ -8075,7 +8075,7 @@ scan_number_done:
         return result;
     }
 
-    /// return syntax error message
+    /// return syntax error message_
     JSON_HEDLEY_RETURNS_NON_NULL
     constexpr const char* get_error_message() const noexcept
     {
@@ -10862,9 +10862,9 @@ class binary_reader
 
     /*!
     @param[in] format   the current format
-    @param[in] detail   a detailed error message
+    @param[in] detail   a detailed error message_
     @param[in] context  further context information
-    @return a message string to use in the parse_error exceptions
+    @return a message_ string to use in the parse_error exceptions
     */
     std::string exception_message(const input_format_t format,
                                   const std::string& detail,
@@ -11261,7 +11261,7 @@ class parser
 
                     case token_type::parse_error:
                     {
-                        // using "uninitialized" to avoid "expected" message
+                        // using "uninitialized" to avoid "expected" message_
                         return sax->parse_error(m_lexer.get_position(),
                                                 m_lexer.get_token_string(),
                                                 parse_error::create(101, m_lexer.get_position(), exception_message(token_type::uninitialized, "value"), nullptr));
@@ -17741,15 +17741,15 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         result["version"]["patch"] = NLOHMANN_JSON_VERSION_PATCH;
 
 #ifdef _WIN32
-        result["platform"] = "win32";
+        result["platforms_"] = "win32";
 #elif defined __linux__
-        result["platform"] = "linux";
+        result["platforms_"] = "linux";
 #elif defined __APPLE__
-        result["platform"] = "apple";
+        result["platforms_"] = "apple";
 #elif defined __unix__
-        result["platform"] = "unix";
+        result["platforms_"] = "unix";
 #else
-        result["platform"] = "unknown";
+        result["platforms_"] = "unknown";
 #endif
 
 #if defined(__ICC) || defined(__INTEL_COMPILER)
@@ -21899,7 +21899,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
                 // find value
                 auto it = val.m_value.object->find(member);
 
-                // context-sensitive error message
+                // context-sensitive error message_
                 const auto error_msg = (op == "op") ? "operation" : detail::concat("operation '", op, '\'');
 
                 // check if desired value is present

@@ -31,7 +31,7 @@ private:
     std::vector<std::vector<float>> station_locations_;
     std::vector<std::vector<int>> station_connections_;
     std::vector<Metro> metros_;
-    std::vector<Passenger> items_;
+    std::vector<Item> items_;
     std::vector<int> destinations_;
     Brain brain_;
 };

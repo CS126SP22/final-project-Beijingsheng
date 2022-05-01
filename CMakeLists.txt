@@ -53,7 +53,7 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 list(APPEND SOURCE_FILES    src/simulator.cpp
                             src/brain.cpp
                             src/metro.cpp
-                            src/passenger.cpp
+        src/item.cpp
                             src/dijkstra.cpp)
 
 list(APPEND TEST_FILES tests/test.cpp)
