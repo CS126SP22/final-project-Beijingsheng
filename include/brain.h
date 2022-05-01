@@ -33,7 +33,7 @@ private:
     void DisplayScrollBars();
     void InitValues();
     void InitMetro();
-    void InitPassengers();
+    void InitItems();
     Dijkstra InitDijkstra();
     void UpdateArriving(int i);
     void UpdateDriving(int i);
@@ -55,7 +55,7 @@ private:
     float x_scroll_ = 100;
     bool on_pause_ = true;
     float speed_ = 1.2;
-    std::string message_ = "_______________";
+    std::string message_ = "_______message here________";
     std::vector<Metro> metros_;
     std::vector<Item> items_;
     Dijkstra dijkstra_;

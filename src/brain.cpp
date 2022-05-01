@@ -23,9 +23,12 @@ Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<
     this->dijkstra_ = Dijkstra(InitDijkstra());
     InitValues();
     InitMetro();
-    InitPassengers();
+    InitItems();
 }
 
+/**
+ * Initialize class variables
+ */
 void Brain::InitValues() {
     for (size_t i = 0; i < this->station_locations_.size(); i++) {
         std::vector<int> p;
@@ -42,6 +45,10 @@ void Brain::InitValues() {
     }
 }
 
+/**
+ * Initialize graph needed for Dijkstra Algorithm
+ * @return graph
+ */
 Dijkstra Brain::InitDijkstra() {
     std::vector<std::vector<int>> graph;
     for (int i = 0; i < station_locations_.size(); i++) {
@@ -58,18 +65,27 @@ Dijkstra Brain::InitDijkstra() {
     return graph;
 }
 
+/**
+ * Initialize starting station for each metro
+ */
 void Brain::InitMetro() {
     for (size_t i = 0; i < metros_.size(); i++) {
         metros_[i].location = station_locations_[metros_[i].GetCurStop()];
     }
 }
 
-void Brain::InitPassengers() {
+/**
+ * Initialize starting station for each item
+ */
+void Brain::InitItems() {
     for (size_t i = 0; i < items_.size(); i++) {
         platforms_[items_[i].GetCurStop()].push_back(i);
     }
 }
 
+/**
+ * Display connections between stations
+ */
 void Brain::DisplayConnections() {
     for (unsigned int i = 0; i < station_connections_.size(); i++) {
         for (unsigned int j = i + 1; j < station_connections_.size(); j++) {
@@ -83,6 +99,10 @@ void Brain::DisplayConnections() {
     }
 }
 
+/**
+ * Draw shadow for station i
+ * @param i
+ */
 void Brain::DrawStationShadow(int i) {
     ci::Rectf r;
     ci::gl::color(ci::Color("gray"));
@@ -97,6 +117,9 @@ void Brain::DrawStationShadow(int i) {
                                                      top_ + station_locations_[i][1] + station_radius_));
 }
 
+/**
+ * Display each station
+ */
 void Brain::DisplayStations() {
     for (unsigned int i = 0; i < station_locations_.size(); i++) {
         DrawStationShadow(i);
@@ -113,6 +136,9 @@ void Brain::DisplayStations() {
     }
 }
 
+/**
+ * Display each metro's current location
+ */
 void Brain::DisplayMetros() {
     for (unsigned int i = 0; i < metros_.size(); i++) {
         ci::gl::color(metros_[i].color);
@@ -122,6 +148,9 @@ void Brain::DisplayMetros() {
     }
 }
 
+/**
+ * Display each item's current location
+ */
 void Brain::DisplayItems() {
     for (size_t i = 0; i < platforms_.size(); i++) {
         for (size_t j = 0; j < platforms_[i].size(); j++) {
@@ -138,6 +167,9 @@ void Brain::DisplayItems() {
     DisplayItemsOnTravel();
 }
 
+/**
+ * Display items that are on travelling
+ */
 void Brain::DisplayItemsOnTravel() {
     for (size_t i = 0; i < items_.size(); i++) {
         if (items_[i].on_metro != -1) {
@@ -149,6 +181,9 @@ void Brain::DisplayItemsOnTravel() {
     }
 }
 
+/**
+ * Display information: steps done, total steps, on click information
+ */
 void Brain::DisplayInformation() {
     int temp = 0;
     for (int i = 0; i < items_.size(); i++)
@@ -161,6 +196,9 @@ void Brain::DisplayInformation() {
                                ci::Font("helvetica", 18));
 }
 
+/**
+ * Call all display functions in order
+ */
 void Brain::Display() {
     DisplayConnections();
     DisplayStations();
@@ -171,6 +209,9 @@ void Brain::Display() {
     DisplayScrollBars();
 }
 
+/**
+ * Display scroll bar, horizontal and vertical
+ */
 void Brain::DisplayScrollBars() {
     ci::gl::color(ci::Color("gray"));
     ci::Rectf r;
@@ -185,6 +226,9 @@ void Brain::DisplayScrollBars() {
     ci::gl::drawSolidRoundedRect(r, 5, 0, glm::vec2(kWindowSize-20, 100 - (top_ * (kWindowSize - 125)) - 25), glm::vec2(kWindowSize, 100 - (top_ * (kWindowSize - 125)) + 25));
 }
 
+/**
+ * Display speed control button
+ */
 void Brain::DisplaySpeedControl() {
     ci::Rectf r;
     ci::gl::color(ci::Color(0.96, 1, 0.67));
@@ -193,6 +237,13 @@ void Brain::DisplaySpeedControl() {
     ci::gl::drawSolidRoundedRect(r, 5, 0, glm::vec2(600, 75), glm::vec2(800, 85));
 }
 
+/**
+ * On board function for items first time boarding a metro
+ * @param i metro idx
+ * @param p item idx
+ * @param station station idx
+ * @param idx
+ */
 void Brain::OnBoardFirstTime(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
     metros_[i].passenger = p;
@@ -201,6 +252,13 @@ void Brain::OnBoardFirstTime(int i, int p, int station, int idx) {
     items_[p].visited.push_back(station);
 }
 
+/**
+ * On board function for items already started their route
+ * @param i metro idx
+ * @param p item idx
+ * @param station station idx
+ * @param idx
+ */
 void Brain::OnBoardToNext(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
     metros_[i].passenger = p;
@@ -209,6 +267,11 @@ void Brain::OnBoardToNext(int i, int p, int station, int idx) {
     items_[p].visited.push_back(station);
 }
 
+/**
+ * Called when metro i picks up an item at station
+ * @param i metro idx
+ * @param station station idx
+ */
 void Brain::OnBoard(int i, int station) {
     if (metros_[i].passenger != -1) return;
     if (platforms_[station].size() > 0) {
@@ -227,6 +290,11 @@ void Brain::OnBoard(int i, int station) {
     }
 }
 
+/**
+ * Called when metro i drop off an item at station
+ * @param i metro idx
+ * @param station station idx
+ */
 void Brain::OffBoard(int i, int station) {
     int p = metros_[i].passenger;
     if (station == destinations_[p]) {
@@ -245,6 +313,10 @@ void Brain::OffBoard(int i, int station) {
     }
 }
 
+/**
+ * Called when metro i arrives at its next stop
+ * @param i next stop idx
+ */
 void Brain::UpdateArriving(int i) {
     metros_[i].location[0] = station_locations_[metros_[i].GetNextStop()][0];
     metros_[i].location[1] = station_locations_[metros_[i].GetNextStop()][1];
@@ -257,6 +329,10 @@ void Brain::UpdateArriving(int i) {
     }
 }
 
+/**
+ * Called when metro i leaves its current stop
+ * @param i current stop idx
+ */
 void Brain::UpdateDriving(int i) {
     float x1 = station_locations_[metros_[i].route[metros_[i].next_stop_idx]][1] - metros_[i].location[1];
     float x2 = station_locations_[metros_[i].route[metros_[i].next_stop_idx]][0] - metros_[i].location[0];

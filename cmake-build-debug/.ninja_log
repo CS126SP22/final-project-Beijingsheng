@@ -70,3 +70,7 @@
 2	2976	1651439443927555594	CMakeFiles/mini-metro.dir/src/brain.cpp.o	569b4c0177c78996
 1	3640	1651439444583544938	CMakeFiles/mini-metro.dir/src/simulator.cpp.o	7af8c4e5402bd6a5
 3640	5058	1651439446011521749	Debug/mini-metro/mini-metro	3e90dbc2b9335c0
+1	2050	1651439607900954996	CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o	24b07afd471085f1
+2	2093	1651439608008953320	CMakeFiles/mini-metro.dir/src/brain.cpp.o	569b4c0177c78996
+1	3334	1651439609244934150	CMakeFiles/mini-metro.dir/src/simulator.cpp.o	7af8c4e5402bd6a5
+3334	4719	1651439610640912506	Debug/mini-metro/mini-metro	3e90dbc2b9335c0
