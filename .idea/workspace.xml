@@ -12,31 +12,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="scroll bar">
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-mini-metro-Debug-5343f9483fc88e269a5a.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="set up testing">
+      <change afterPath="$PROJECT_DIR$/include/Google C++ Style Guide.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/bgmusic.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-fc070ba503464671d509.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-d06c266797683f63018c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-0033a78c25c3fd683793.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-04-25T19-12-57-0178.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-mini-metro-Debug-048cb9a2f9ed113eb07b.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/dijkstra.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/dijkstra.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/apps/mini_metro_main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dijkstra.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dijkstra.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dijkstra.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/dijkstra.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/simulator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/simulator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/brain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/brain.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +75,7 @@
       <recent name="$PROJECT_DIR$/apps" />
     </key>
   </component>
-  <component name="RunManager" selected="Catch.mini-metro-test">
+  <component name="RunManager" selected="CMake Application.mini-metro">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -143,7 +130,7 @@
       <workItem from="1651424343007" duration="21000" />
       <workItem from="1651424391740" duration="122000" />
       <workItem from="1651424529451" duration="17000" />
-      <workItem from="1651424556512" duration="1131000" />
+      <workItem from="1651424556512" duration="5136000" />
     </task>
     <task id="LOCAL-00001" summary="set up simulator.h, simulator.cpp, render window">
       <created>1649801345562</created>
@@ -257,7 +244,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651423107096</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="set up testing">
+      <created>1651426761284</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1651426761285</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,6 +287,7 @@
     <MESSAGE value="inal push" />
     <MESSAGE value="final push" />
     <MESSAGE value="scroll bar" />
-    <option name="LAST_COMMIT_MESSAGE" value="scroll bar" />
+    <MESSAGE value="set up testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="set up testing" />
   </component>
 </project>

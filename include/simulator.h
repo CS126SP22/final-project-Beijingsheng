@@ -13,17 +13,26 @@ namespace minimetro {
 class MiniMetroApp : public ci::app::App {
 public:
     MiniMetroApp();
-
     void draw() override;
     void update() override;
     void mouseDown(ci::app::MouseEvent event) override;
     void mouseDrag(ci::app::MouseEvent event) override;
-
-    void MusicPlayer();
-
-    const int kWindowSize = 875;
-
 private:
+    const int kWindowSize = 875;
+    const std::string kFileStationsLocation = "/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/stations.json";
+    const std::string kFileMetrosLocation = "/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/metros_.json";
+    const std::string kFileItemsLocation = "/home/clark/Cinder/my-projects/final-project-Beijingsheng/resources/items.json";
+
+    void readDataItems();
+    void readDataMetros();
+    void readDataStations();
+    void drawSpeedControlPanel();
+
+    std::vector<std::vector<float>> station_locations_;
+    std::vector<std::vector<int>> station_connections_;
+    std::vector<Metro> metros_;
+    std::vector<Passenger> items_;
+    std::vector<int> destinations_;
     Brain brain_;
 };
 

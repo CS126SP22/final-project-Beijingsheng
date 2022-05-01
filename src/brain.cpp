@@ -18,18 +18,18 @@ Brain::Brain(std::vector<std::vector<float>> locations, std::vector<std::vector<
     this->left_ = 100;
     this->y_scroll_ = 100;
     this->x_scroll_ = 100;
-    //locations for all station
+    //station_locations_ for all station
     this->locations = locations;
     this->onPause = true;
-    //connections between stations
+    //station_connections_ between stations
     this->connections = connections;
     //station radius on graph
     this->station_radius_ = station_radius;
     //all metro routes
     this->metros = metros;
-    //all passengers, color and start station
+    //all items_, color and start station
     this->passengers = passengers;
-    //all passengers' destination
+    //all items_' destinations_
     this->destination = d;
     //height of each station
     this->dijkstra = Dijkstra(InitDijkstra());
@@ -208,7 +208,7 @@ void Brain::DisplaySpeedControl() {
 
 //logic to decide if pick up a passenger when metro i enters station station
 void Brain::OnBoard(int i, int station) {
-    //don't pick up passenger if this is the destination
+    //don't pick up passenger if this is the destinations_
     if (metros[i].passenger != -1)
         return;
     //if the station has at least one passenger on the platform
