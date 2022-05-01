@@ -12,8 +12,6 @@ namespace minimetro {
         Dijkstra(std::vector<std::vector<int>> graph);
         int minDist(std::vector<int> dist, std::vector<bool> sptSet);
         std::vector<int> GetPath(int s, int t);
-        std::vector<int> GetSolution(int s, int t, std::vector<int> dist, std::vector<int> parent);
-
         int V;
         std::vector<std::vector<int>> graph;
     };

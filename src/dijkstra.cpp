@@ -16,13 +16,6 @@ namespace minimetro {
         return min_index;
     }
 
-    std::vector<int> Dijkstra::GetSolution(int s, int t, std::vector<int> dist, std::vector<int> parent) {
-        int src = 0;
-        for (int i = 0; i < V; i++) {
-
-        }
-    }
-
     std::vector<int> Dijkstra::GetPath(int s, int t) {
         std::vector<int> dist;
         std::vector<bool> sptSet;
