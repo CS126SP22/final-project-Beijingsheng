@@ -38,9 +38,9 @@ void Brain::InitValues() {
     for (size_t i = 0; i < this->items_.size(); i++) {
         std::vector<int> h = dijkstra_.GetPath(destinations_[i]);
         this->cur_heights_.push_back(h);
-        this->total_steps_needed_ += h[this->items_[i].cur_stop];
-        this->init_heights_.push_back(h[this->items_[i].cur_stop]);
-        this->visitor_counts_[this->items_[i].cur_stop] += 1;
+        this->total_steps_needed_ += h[this->items_[i].cur_stop_];
+        this->init_heights_.push_back(h[this->items_[i].cur_stop_]);
+        this->visitor_counts_[this->items_[i].cur_stop_] += 1;
         this->item_locations_.push_back(std::vector<int> {0, 0});
     }
 }
@@ -154,12 +154,12 @@ void Brain::DisplayMetros() {
 void Brain::DisplayItems() {
     for (size_t i = 0; i < platforms_.size(); i++) {
         for (size_t j = 0; j < platforms_[i].size(); j++) {
-            if (items_[platforms_[i][j]].cur_stop != destinations_[platforms_[i][j]])
-                ci::gl::color(items_[platforms_[i][j]].color);
+            if (items_[platforms_[i][j]].cur_stop_ != destinations_[platforms_[i][j]])
+                ci::gl::color(items_[platforms_[i][j]].color_);
             else ci::gl::color(ci::Color("green"));
-            if (items_[platforms_[i][j]].on_metro == -1) {
-                item_locations_[platforms_[i][j]][0] = left_ + station_locations_[items_[platforms_[i][j]].cur_stop][0] - (j + 1.8) * station_radius_ * 0.9;
-                item_locations_[platforms_[i][j]][1] = top_ + station_locations_[items_[platforms_[i][j]].cur_stop][1] - (j + 1.8) * station_radius_ * 0.9;
+            if (items_[platforms_[i][j]].on_metro_ == -1) {
+                item_locations_[platforms_[i][j]][0] = left_ + station_locations_[items_[platforms_[i][j]].cur_stop_][0] - (j + 1.8) * station_radius_ * 0.9;
+                item_locations_[platforms_[i][j]][1] = top_ + station_locations_[items_[platforms_[i][j]].cur_stop_][1] - (j + 1.8) * station_radius_ * 0.9;
                 ci::gl::drawSolidCircle(glm::vec2(item_locations_[platforms_[i][j]][0], item_locations_[platforms_[i][j]][1]), station_radius_ * 0.6);
             }
         }
@@ -172,10 +172,10 @@ void Brain::DisplayItems() {
  */
 void Brain::DisplayItemsOnTravel() {
     for (size_t i = 0; i < items_.size(); i++) {
-        if (items_[i].on_metro != -1) {
-            item_locations_[i][0] = left_ + metros_[items_[i].on_metro].location[0];
-            item_locations_[i][1] = top_ + metros_[items_[i].on_metro].location[1];
-            ci::gl::color(items_[i].color);
+        if (items_[i].on_metro_ != -1) {
+            item_locations_[i][0] = left_ + metros_[items_[i].on_metro_].location[0];
+            item_locations_[i][1] = top_ + metros_[items_[i].on_metro_].location[1];
+            ci::gl::color(items_[i].color_);
             ci::gl::drawSolidCircle(glm::vec2(item_locations_[i][0], item_locations_[i][1]), station_radius_ * 0.6);
         }
     }
@@ -187,7 +187,7 @@ void Brain::DisplayItemsOnTravel() {
 void Brain::DisplayInformation() {
     int temp = 0;
     for (int i = 0; i < items_.size(); i++)
-        temp += cur_heights_[i][items_[i].cur_stop];
+        temp += cur_heights_[i][items_[i].cur_stop_];
     ci::gl::drawStringCentered(std::to_string(total_steps_needed_ - temp) + "/" + std::to_string(total_steps_needed_),
                                vec2(300, 30), ci::ColorA(0, 0, 0, 1),
                                ci::Font("helvetica", 30));
@@ -248,8 +248,8 @@ void Brain::OnBoardFirstTime(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
     metros_[i].passenger = p;
     carry_counts_[i] += 1;
-    items_[p].on_metro = i;
-    items_[p].visited.push_back(station);
+    items_[p].on_metro_ = i;
+    items_[p].visit_hist_.push_back(station);
 }
 
 /**
@@ -263,8 +263,8 @@ void Brain::OnBoardToNext(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
     metros_[i].passenger = p;
     carry_counts_[i] += 1;
-    items_[p].on_metro = i;
-    items_[p].visited.push_back(station);
+    items_[p].on_metro_ = i;
+    items_[p].visit_hist_.push_back(station);
 }
 
 /**
@@ -278,10 +278,10 @@ void Brain::OnBoard(int i, int station) {
         for (size_t idx = 0; idx < platforms_[station].size(); idx++) {
             int p = platforms_[station][idx];
             if (station == destinations_[p]) continue;
-            if (items_[p].cur_stop != destinations_[p]) {
-                if (items_[p].visited.size() == 0)
+            if (items_[p].cur_stop_ != destinations_[p]) {
+                if (items_[p].visit_hist_.size() == 0)
                     OnBoardFirstTime(i, p, station, idx);
-                else if (items_[p].visited.size() > 0 && cur_heights_[p][items_[p].visited[items_[p].visited.size() - 1]] > cur_heights_[p][metros_[i].GetNextStop()]) {
+                else if (items_[p].visit_hist_.size() > 0 && cur_heights_[p][items_[p].visit_hist_[items_[p].visit_hist_.size() - 1]] > cur_heights_[p][metros_[i].GetNextStop()]) {
                     OnBoardToNext(i, p, station, idx);
                 }
                 break;
@@ -299,15 +299,15 @@ void Brain::OffBoard(int i, int station) {
     int p = metros_[i].passenger;
     if (station == destinations_[p]) {
         metros_[i].passenger = -1;
-        items_[p].on_metro = -1;
-        items_[p].cur_stop = station;
+        items_[p].on_metro_ = -1;
+        items_[p].cur_stop_ = station;
         platforms_[station].push_back(p);
         visitor_counts_[station] += 1;
     }
-    else if (cur_heights_[p][items_[p].visited[items_[p].visited.size() - 1]] >= cur_heights_[p][station]) {
+    else if (cur_heights_[p][items_[p].visit_hist_[items_[p].visit_hist_.size() - 1]] >= cur_heights_[p][station]) {
         metros_[i].passenger = -1;
-        items_[p].on_metro = -1;
-        items_[p].cur_stop = station;
+        items_[p].on_metro_ = -1;
+        items_[p].cur_stop_ = station;
         platforms_[station].push_back(p);
         visitor_counts_[station] += 1;
     }
@@ -345,7 +345,7 @@ void Brain::AdvanceOneFrame() {
     if (!on_pause_) {
         int count = 0;
         for (size_t i = 0; i < items_.size(); i++)
-            if (items_[i].cur_stop == destinations_[i]) count ++;
+            if (items_[i].cur_stop_ == destinations_[i]) count ++;
         if (count == items_.size()) return;
         for (size_t i = 0; i < metros_.size(); i++) {
             if (glm::length(glm::vec2(metros_[i].location[0], metros_[i].location[1])
@@ -377,10 +377,10 @@ bool Brain::HandleClickItem(const vec2 &vec) {
         if ((vec[0] - item_locations_[i][0]) * (vec[0] - item_locations_[i][0])
             + (vec[1] - item_locations_[i][1]) * (vec[1] - item_locations_[i][1])
             <= station_radius_ * 0.7 * station_radius_ * 0.7) {
-            if (!cur_heights_[i][items_[i].cur_stop]) {
+            if (!cur_heights_[i][items_[i].cur_stop_]) {
                 message_ = "Item " + std::to_string(i + 1) + " moved " + std::to_string(init_heights_[i]) + " times.";
             } else {
-                message_ = "Item " + std::to_string(i + 1) + " needs " + std::to_string(cur_heights_[i][items_[i].cur_stop]) + " more moves.";
+                message_ = "Item " + std::to_string(i + 1) + " needs " + std::to_string(cur_heights_[i][items_[i].cur_stop_]) + " more moves.";
             }
             return true;
         }
@@ -404,7 +404,7 @@ bool Brain::HandleClickStation(const vec2 &vec) {
     for (int i = 0; i < station_locations_.size(); i++) {
         if (abs(vec[0] - left_ - station_locations_[i][0]) <= station_radius_) {
             if (abs(vec[1] - top_ - station_locations_[i][1]) <= station_radius_) {
-                message_ = "Station " + std::to_string(i) + " has been visited " + std::to_string(visitor_counts_[i]) + " times.";
+                message_ = "Station " + std::to_string(i) + " has been visit_hist_ " + std::to_string(visitor_counts_[i]) + " times.";
                 return true;
             }
         }
