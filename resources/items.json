@@ -2,22 +2,22 @@
   "data": [
     {
       "start": 0,
-      "destination": 6,
+      "destination": 10,
       "color": "blue"
     },
     {
       "start": 1,
-      "destination": 6,
+      "destination": 10,
       "color": "red"
     },
     {
       "start": 2,
-      "destination": 6,
+      "destination": 10,
       "color": "blue"
     },
     {
       "start": 3,
-      "destination": 6,
+      "destination": 10,
       "color": "red"
     },
     {

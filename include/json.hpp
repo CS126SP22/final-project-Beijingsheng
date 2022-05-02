@@ -15777,7 +15777,7 @@ inline void grisu2_round(char* buf, int len, std::uint64_t dist, std::uint64_t d
     //                                <------>
     //                                       <---- rest ---->
     // --------------[------------------+----+--------------]--------------
-    //                                  w    V
+    //                                  w    num_of_vertices_
     //                                       = buf * 10^k
     //
     // ten_k represents a unit-in-the-last-place in the decimal representation
@@ -15798,7 +15798,7 @@ inline void grisu2_round(char* buf, int len, std::uint64_t dist, std::uint64_t d
 }
 
 /*!
-Generates V = buffer * 10^decimal_exponent, such that M- <= V <= M+.
+Generates num_of_vertices_ = buffer * 10^decimal_exponent, such that M- <= num_of_vertices_ <= M+.
 M- and M+ must be normalized and share the same exponent -60 <= e <= -32.
 */
 inline void grisu2_digit_gen(char* buffer, int& length, int& decimal_exponent,
@@ -15808,7 +15808,7 @@ inline void grisu2_digit_gen(char* buffer, int& length, int& decimal_exponent,
     static_assert(kGamma <= -32, "internal error");
 
     // Generates the digits (and the exponent) of a decimal floating-point
-    // number V = buffer * 10^decimal_exponent in the range [M-, M+]. The diyfp's
+    // number num_of_vertices_ = buffer * 10^decimal_exponent in the range [M-, M+]. The diyfp's
     // w, M- and M+ share the same exponent e, which satisfies alpha <= e <= gamma.
     //
     //               <--------------------------- delta ---->
@@ -15817,7 +15817,7 @@ inline void grisu2_digit_gen(char* buffer, int& length, int& decimal_exponent,
     //               M-                 w                   M+
     //
     // Grisu2 generates the digits of M+ from left to right and stops as soon as
-    // V is in [M-,M+].
+    // num_of_vertices_ is in [M-,M+].
 
     JSON_ASSERT(M_plus.e >= kAlpha);
     JSON_ASSERT(M_plus.e <= kGamma);
@@ -15900,14 +15900,14 @@ inline void grisu2_digit_gen(char* buffer, int& length, int& decimal_exponent,
         const std::uint64_t rest = (std::uint64_t{p1} << -one.e) + p2;
         if (rest <= delta)
         {
-            // V = buffer * 10^n, with M- <= V <= M+.
+            // num_of_vertices_ = buffer * 10^n, with M- <= num_of_vertices_ <= M+.
 
             decimal_exponent += n;
 
             // We may now just stop. But instead look if the buffer could be
-            // decremented to bring V closer to w.
+            // decremented to bring num_of_vertices_ closer to w.
             //
-            // pow10 = 10^n is now 1 ulp in the decimal representation V.
+            // pow10 = 10^n is now 1 ulp in the decimal representation num_of_vertices_.
             // The rounding procedure works with diyfp's with an implicit
             // exponent of e.
             //
@@ -16008,7 +16008,7 @@ inline void grisu2_digit_gen(char* buffer, int& length, int& decimal_exponent,
         }
     }
 
-    // V = buffer * 10^-m, with M- <= V <= M+.
+    // num_of_vertices_ = buffer * 10^-m, with M- <= num_of_vertices_ <= M+.
 
     decimal_exponent -= m;
 

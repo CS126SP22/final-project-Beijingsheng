@@ -36,7 +36,7 @@ void Brain::InitValues() {
         this->visitor_counts_.push_back(0);
     }
     for (size_t i = 0; i < this->items_.size(); i++) {
-        std::vector<int> h = dijkstra_.GetPath(destinations_[i], 0);
+        std::vector<int> h = dijkstra_.GetPath(destinations_[i]);
         this->cur_heights_.push_back(h);
         this->total_steps_needed_ += h[this->items_[i].cur_stop];
         this->init_heights_.push_back(h[this->items_[i].cur_stop]);
@@ -46,8 +46,8 @@ void Brain::InitValues() {
 }
 
 /**
- * Initialize graph needed for Dijkstra Algorithm
- * @return graph
+ * Initialize graph_ needed for Dijkstra Algorithm
+ * @return graph_
  */
 Dijkstra Brain::InitDijkstra() {
     std::vector<std::vector<int>> graph;
