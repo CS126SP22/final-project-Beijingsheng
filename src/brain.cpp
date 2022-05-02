@@ -404,7 +404,7 @@ bool Brain::HandleClickStation(const vec2 &vec) {
     for (int i = 0; i < station_locations_.size(); i++) {
         if (abs(vec[0] - left_ - station_locations_[i][0]) <= station_radius_) {
             if (abs(vec[1] - top_ - station_locations_[i][1]) <= station_radius_) {
-                message_ = "Station " + std::to_string(i) + " has been visit_hist_ " + std::to_string(visitor_counts_[i]) + " times.";
+                message_ = "Station " + std::to_string(i) + " has been visited " + std::to_string(visitor_counts_[i]) + " times.";
                 return true;
             }
         }

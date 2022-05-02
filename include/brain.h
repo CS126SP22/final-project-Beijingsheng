@@ -21,26 +21,7 @@ public:
     void Display();
     void AdvanceOneFrame();
     void HandleBrush(const vec2& vec);
-private:
-    void DisplayConnections();
-    void DisplayStations();
-    void DisplayMetros();
-    void DisplayItems();
-    void DisplayItemsOnTravel();
-    void DrawStationShadow(int i);
-    void DisplayInformation();
-    void DisplaySpeedControl();
-    void DisplayScrollBars();
-    void InitValues();
-    void InitMetro();
-    void InitItems();
-    Dijkstra InitDijkstra();
-    void UpdateArriving(int i);
-    void UpdateDriving(int i);
-    void OnBoard(int metro, int station);
-    void OnBoardFirstTime(int metro, int p, int station, int idx);
-    void OnBoardToNext(int metro, int p, int station, int idx);
-    void OffBoard(int metro, int station);
+
     int kWindowSize;
     std::vector<int> destinations_;
     std::vector<std::vector<int>> item_locations_;
@@ -63,6 +44,26 @@ private:
     std::vector<int> init_heights_;
     std::vector<int> visitor_counts_;
     std::vector<int> carry_counts_;
+private:
+    void DisplayConnections();
+    void DisplayStations();
+    void DisplayMetros();
+    void DisplayItems();
+    void DisplayItemsOnTravel();
+    void DrawStationShadow(int i);
+    void DisplayInformation();
+    void DisplaySpeedControl();
+    void DisplayScrollBars();
+    void InitValues();
+    void InitMetro();
+    void InitItems();
+    Dijkstra InitDijkstra();
+    void UpdateArriving(int i);
+    void UpdateDriving(int i);
+    void OnBoard(int metro, int station);
+    void OnBoardFirstTime(int metro, int p, int station, int idx);
+    void OnBoardToNext(int metro, int p, int station, int idx);
+    void OffBoard(int metro, int station);
 
     void HandleVerticalScrollBar(const vec2 &vec);
     void HandleHorizontalScrollBar(const vec2 &vec);
