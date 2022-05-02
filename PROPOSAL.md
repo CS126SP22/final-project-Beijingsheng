@@ -1,4 +1,4 @@
-My project is going to be a bus route animation generator. The application I am building is going to generate animations of buses moving on a map following certain routes.
+My project is going to be a bus route_ animation generator. The application I am building is going to generate animations of buses moving on a map following certain routes.
 
 Required background knowledge including 1) Reading, editing, saving JSON files. 2) Visualizing animation. 3) Reading user input and providing feedbacks.
 

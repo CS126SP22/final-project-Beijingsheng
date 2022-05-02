@@ -59,8 +59,8 @@ Dijkstra Brain::InitDijkstra() {
     }
     for (int i = 0; i < metros_.size(); i++) {
         carry_counts_.push_back(0);
-        for (int j = 0; j < metros_[i].route.size() - 1; j++)
-            graph[metros_[i].route[j + 1]][metros_[i].route[j]] = 1;
+        for (int j = 0; j < metros_[i].route_.size() - 1; j++)
+            graph[metros_[i].route_[j + 1]][metros_[i].route_[j]] = 1;
     }
     return graph;
 }
@@ -70,7 +70,7 @@ Dijkstra Brain::InitDijkstra() {
  */
 void Brain::InitMetro() {
     for (size_t i = 0; i < metros_.size(); i++) {
-        metros_[i].location = station_locations_[metros_[i].GetCurStop()];
+        metros_[i].location_ = station_locations_[metros_[i].GetCurStop()];
     }
 }
 
@@ -137,19 +137,19 @@ void Brain::DisplayStations() {
 }
 
 /**
- * Display each metro's current location
+ * Display each metro's current location_
  */
 void Brain::DisplayMetros() {
     for (unsigned int i = 0; i < metros_.size(); i++) {
-        ci::gl::color(metros_[i].color);
+        ci::gl::color(metros_[i].color_);
         ci::Rectf r;
-        r.set(left_ + metros_[i].location[0] - station_radius_ * 0.9, top_ + metros_[i].location[1] - station_radius_ * 0.9, left_ + metros_[i].location[0] + station_radius_ * 0.9, top_ + metros_[i].location[1] + station_radius_ * 0.9);
+        r.set(left_ + metros_[i].location_[0] - station_radius_ * 0.9, top_ + metros_[i].location_[1] - station_radius_ * 0.9, left_ + metros_[i].location_[0] + station_radius_ * 0.9, top_ + metros_[i].location_[1] + station_radius_ * 0.9);
         ci::gl::drawSolidRect(r);
     }
 }
 
 /**
- * Display each item's current location
+ * Display each item's current location_
  */
 void Brain::DisplayItems() {
     for (size_t i = 0; i < platforms_.size(); i++) {
@@ -173,8 +173,8 @@ void Brain::DisplayItems() {
 void Brain::DisplayItemsOnTravel() {
     for (size_t i = 0; i < items_.size(); i++) {
         if (items_[i].on_metro_ != -1) {
-            item_locations_[i][0] = left_ + metros_[items_[i].on_metro_].location[0];
-            item_locations_[i][1] = top_ + metros_[items_[i].on_metro_].location[1];
+            item_locations_[i][0] = left_ + metros_[items_[i].on_metro_].location_[0];
+            item_locations_[i][1] = top_ + metros_[items_[i].on_metro_].location_[1];
             ci::gl::color(items_[i].color_);
             ci::gl::drawSolidCircle(glm::vec2(item_locations_[i][0], item_locations_[i][1]), station_radius_ * 0.6);
         }
@@ -246,14 +246,14 @@ void Brain::DisplaySpeedControl() {
  */
 void Brain::OnBoardFirstTime(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
-    metros_[i].passenger = p;
+    metros_[i].passenger_ = p;
     carry_counts_[i] += 1;
     items_[p].on_metro_ = i;
     items_[p].visit_hist_.push_back(station);
 }
 
 /**
- * On board function for items already started their route
+ * On board function for items already started their route_
  * @param i metro idx
  * @param p item idx
  * @param station station idx
@@ -261,7 +261,7 @@ void Brain::OnBoardFirstTime(int i, int p, int station, int idx) {
  */
 void Brain::OnBoardToNext(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
-    metros_[i].passenger = p;
+    metros_[i].passenger_ = p;
     carry_counts_[i] += 1;
     items_[p].on_metro_ = i;
     items_[p].visit_hist_.push_back(station);
@@ -273,7 +273,7 @@ void Brain::OnBoardToNext(int i, int p, int station, int idx) {
  * @param station station idx
  */
 void Brain::OnBoard(int i, int station) {
-    if (metros_[i].passenger != -1) return;
+    if (metros_[i].passenger_ != -1) return;
     if (platforms_[station].size() > 0) {
         for (size_t idx = 0; idx < platforms_[station].size(); idx++) {
             int p = platforms_[station][idx];
@@ -296,16 +296,16 @@ void Brain::OnBoard(int i, int station) {
  * @param station station idx
  */
 void Brain::OffBoard(int i, int station) {
-    int p = metros_[i].passenger;
+    int p = metros_[i].passenger_;
     if (station == destinations_[p]) {
-        metros_[i].passenger = -1;
+        metros_[i].passenger_ = -1;
         items_[p].on_metro_ = -1;
         items_[p].cur_stop_ = station;
         platforms_[station].push_back(p);
         visitor_counts_[station] += 1;
     }
     else if (cur_heights_[p][items_[p].visit_hist_[items_[p].visit_hist_.size() - 1]] >= cur_heights_[p][station]) {
-        metros_[i].passenger = -1;
+        metros_[i].passenger_ = -1;
         items_[p].on_metro_ = -1;
         items_[p].cur_stop_ = station;
         platforms_[station].push_back(p);
@@ -318,10 +318,10 @@ void Brain::OffBoard(int i, int station) {
  * @param i next stop idx
  */
 void Brain::UpdateArriving(int i) {
-    metros_[i].location[0] = station_locations_[metros_[i].GetNextStop()][0];
-    metros_[i].location[1] = station_locations_[metros_[i].GetNextStop()][1];
+    metros_[i].location_[0] = station_locations_[metros_[i].GetNextStop()][0];
+    metros_[i].location_[1] = station_locations_[metros_[i].GetNextStop()][1];
     metros_[i].OnArrive();
-    if (metros_[i].passenger == -1) {
+    if (metros_[i].passenger_ == -1) {
         OnBoard(i, metros_[i].GetCurStop());
     } else {
         OffBoard(i, metros_[i].GetCurStop());
@@ -334,11 +334,11 @@ void Brain::UpdateArriving(int i) {
  * @param i current stop idx
  */
 void Brain::UpdateDriving(int i) {
-    float x1 = station_locations_[metros_[i].route[metros_[i].next_stop_idx]][1] - metros_[i].location[1];
-    float x2 = station_locations_[metros_[i].route[metros_[i].next_stop_idx]][0] - metros_[i].location[0];
+    float x1 = station_locations_[metros_[i].route_[metros_[i].next_stop_idx_]][1] - metros_[i].location_[1];
+    float x2 = station_locations_[metros_[i].route_[metros_[i].next_stop_idx_]][0] - metros_[i].location_[0];
     float x3 = sqrt(x1 * x1 + x2 * x2);
-    metros_[i].location[0] += speed_ * x2 / x3;
-    metros_[i].location[1] += speed_ * x1 / x3;
+    metros_[i].location_[0] += speed_ * x2 / x3;
+    metros_[i].location_[1] += speed_ * x1 / x3;
 }
 
 void Brain::AdvanceOneFrame() {
@@ -348,7 +348,7 @@ void Brain::AdvanceOneFrame() {
             if (items_[i].cur_stop_ == destinations_[i]) count ++;
         if (count == items_.size()) return;
         for (size_t i = 0; i < metros_.size(); i++) {
-            if (glm::length(glm::vec2(metros_[i].location[0], metros_[i].location[1])
+            if (glm::length(glm::vec2(metros_[i].location_[0], metros_[i].location_[1])
                             - glm::vec2(station_locations_[metros_[i].GetNextStop()][0], station_locations_[metros_[i].GetNextStop()][1]))
                 < station_radius_ * 0.2) {
                 UpdateArriving(i);
@@ -390,8 +390,8 @@ bool Brain::HandleClickItem(const vec2 &vec) {
 
 bool Brain::HandleClickMetro(const vec2 &vec) {
     for (int i = 0; i < metros_.size(); i++) {
-        if (abs(vec[0] - left_ - metros_[i].location[0]) <= station_radius_ * 0.9) {
-            if (abs(vec[1] - top_ - metros_[i].location[1]) <= station_radius_ * 0.9) {
+        if (abs(vec[0] - left_ - metros_[i].location_[0]) <= station_radius_ * 0.9) {
+            if (abs(vec[1] - top_ - metros_[i].location_[1]) <= station_radius_ * 0.9) {
                 message_ = "Metro " + std::to_string(i) + " has carried items " + std::to_string(carry_counts_[i]) + " times.";
                 return true;
             }

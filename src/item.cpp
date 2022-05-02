@@ -6,7 +6,7 @@
 namespace minimetro {
 
 /**
- * Constructor with start station and item color
+ * Constructor with start station and item color_
  * @param start_station
  * @param color
  */

@@ -16,7 +16,7 @@ MiniMetroApp::MiniMetroApp() {
 }
 
 /**
- * Read data of stations, including each station's location and their station_connections_,
+ * Read data of stations, including each station's location_ and their station_connections_,
  * from kFileStationsLocation
  */
 void MiniMetroApp::readDataStations() {
