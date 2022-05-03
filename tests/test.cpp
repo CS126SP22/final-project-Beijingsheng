@@ -65,5 +65,12 @@ TEST_CASE("Test Item - on_metro_ value") {
 
 // No.9
 TEST_CASE("Test Dijkstra - Constructor") {
+    minimetro::Dijkstra dijkstra(std::vector<std::vector<int>> {{1,0},{0,1}});
+    REQUIRE(dijkstra.num_of_vertices_ == 2);
+}
 
+// No.10
+TEST_CASE("Test Dijkstra - Get Path") {
+    minimetro::Dijkstra dijkstra(std::vector<std::vector<int>> {{1,0},{0,1}});
+    REQUIRE(dijkstra.GetPath(0)[0] == 0);
 }
