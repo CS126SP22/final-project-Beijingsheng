@@ -38,9 +38,9 @@ void Brain::InitValues() {
     for (size_t i = 0; i < this->items_.size(); i++) {
         std::vector<int> h = dijkstra_.GetPath(destinations_[i]);
         this->cur_heights_.push_back(h);
-        this->total_steps_needed_ += h[this->items_[i].cur_stop];
-        this->init_heights_.push_back(h[this->items_[i].cur_stop]);
-        this->visitor_counts_[this->items_[i].cur_stop] += 1;
+        this->total_steps_needed_ += h[this->items_[i].cur_stop_];
+        this->init_heights_.push_back(h[this->items_[i].cur_stop_]);
+        this->visitor_counts_[this->items_[i].cur_stop_] += 1;
         this->item_locations_.push_back(std::vector<int> {0, 0});
     }
 }
@@ -59,8 +59,8 @@ Dijkstra Brain::InitDijkstra() {
     }
     for (int i = 0; i < metros_.size(); i++) {
         carry_counts_.push_back(0);
-        for (int j = 0; j < metros_[i].route.size() - 1; j++)
-            graph[metros_[i].route[j + 1]][metros_[i].route[j]] = 1;
+        for (int j = 0; j < metros_[i].route_.size() - 1; j++)
+            graph[metros_[i].route_[j + 1]][metros_[i].route_[j]] = 1;
     }
     return graph;
 }
@@ -70,7 +70,7 @@ Dijkstra Brain::InitDijkstra() {
  */
 void Brain::InitMetro() {
     for (size_t i = 0; i < metros_.size(); i++) {
-        metros_[i].location = station_locations_[metros_[i].GetCurStop()];
+        metros_[i].location_ = station_locations_[metros_[i].GetCurStop()];
     }
 }
 
@@ -137,29 +137,29 @@ void Brain::DisplayStations() {
 }
 
 /**
- * Display each metro's current location
+ * Display each metro's current location_
  */
 void Brain::DisplayMetros() {
     for (unsigned int i = 0; i < metros_.size(); i++) {
-        ci::gl::color(metros_[i].color);
+        ci::gl::color(metros_[i].color_);
         ci::Rectf r;
-        r.set(left_ + metros_[i].location[0] - station_radius_ * 0.9, top_ + metros_[i].location[1] - station_radius_ * 0.9, left_ + metros_[i].location[0] + station_radius_ * 0.9, top_ + metros_[i].location[1] + station_radius_ * 0.9);
+        r.set(left_ + metros_[i].location_[0] - station_radius_ * 0.9, top_ + metros_[i].location_[1] - station_radius_ * 0.9, left_ + metros_[i].location_[0] + station_radius_ * 0.9, top_ + metros_[i].location_[1] + station_radius_ * 0.9);
         ci::gl::drawSolidRect(r);
     }
 }
 
 /**
- * Display each item's current location
+ * Display each item's current location_
  */
 void Brain::DisplayItems() {
     for (size_t i = 0; i < platforms_.size(); i++) {
         for (size_t j = 0; j < platforms_[i].size(); j++) {
-            if (items_[platforms_[i][j]].cur_stop != destinations_[platforms_[i][j]])
-                ci::gl::color(items_[platforms_[i][j]].color);
+            if (items_[platforms_[i][j]].cur_stop_ != destinations_[platforms_[i][j]])
+                ci::gl::color(items_[platforms_[i][j]].color_);
             else ci::gl::color(ci::Color("green"));
-            if (items_[platforms_[i][j]].on_metro == -1) {
-                item_locations_[platforms_[i][j]][0] = left_ + station_locations_[items_[platforms_[i][j]].cur_stop][0] - (j + 1.8) * station_radius_ * 0.9;
-                item_locations_[platforms_[i][j]][1] = top_ + station_locations_[items_[platforms_[i][j]].cur_stop][1] - (j + 1.8) * station_radius_ * 0.9;
+            if (items_[platforms_[i][j]].on_metro_ == -1) {
+                item_locations_[platforms_[i][j]][0] = left_ + station_locations_[items_[platforms_[i][j]].cur_stop_][0] - (j + 1.8) * station_radius_ * 0.9;
+                item_locations_[platforms_[i][j]][1] = top_ + station_locations_[items_[platforms_[i][j]].cur_stop_][1] - (j + 1.8) * station_radius_ * 0.9;
                 ci::gl::drawSolidCircle(glm::vec2(item_locations_[platforms_[i][j]][0], item_locations_[platforms_[i][j]][1]), station_radius_ * 0.6);
             }
         }
@@ -172,10 +172,10 @@ void Brain::DisplayItems() {
  */
 void Brain::DisplayItemsOnTravel() {
     for (size_t i = 0; i < items_.size(); i++) {
-        if (items_[i].on_metro != -1) {
-            item_locations_[i][0] = left_ + metros_[items_[i].on_metro].location[0];
-            item_locations_[i][1] = top_ + metros_[items_[i].on_metro].location[1];
-            ci::gl::color(items_[i].color);
+        if (items_[i].on_metro_ != -1) {
+            item_locations_[i][0] = left_ + metros_[items_[i].on_metro_].location_[0];
+            item_locations_[i][1] = top_ + metros_[items_[i].on_metro_].location_[1];
+            ci::gl::color(items_[i].color_);
             ci::gl::drawSolidCircle(glm::vec2(item_locations_[i][0], item_locations_[i][1]), station_radius_ * 0.6);
         }
     }
@@ -187,7 +187,7 @@ void Brain::DisplayItemsOnTravel() {
 void Brain::DisplayInformation() {
     int temp = 0;
     for (int i = 0; i < items_.size(); i++)
-        temp += cur_heights_[i][items_[i].cur_stop];
+        temp += cur_heights_[i][items_[i].cur_stop_];
     ci::gl::drawStringCentered(std::to_string(total_steps_needed_ - temp) + "/" + std::to_string(total_steps_needed_),
                                vec2(300, 30), ci::ColorA(0, 0, 0, 1),
                                ci::Font("helvetica", 30));
@@ -246,14 +246,14 @@ void Brain::DisplaySpeedControl() {
  */
 void Brain::OnBoardFirstTime(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
-    metros_[i].passenger = p;
+    metros_[i].passenger_ = p;
     carry_counts_[i] += 1;
-    items_[p].on_metro = i;
-    items_[p].visited.push_back(station);
+    items_[p].on_metro_ = i;
+    items_[p].visit_hist_.push_back(station);
 }
 
 /**
- * On board function for items already started their route
+ * On board function for items already started their route_
  * @param i metro idx
  * @param p item idx
  * @param station station idx
@@ -261,10 +261,10 @@ void Brain::OnBoardFirstTime(int i, int p, int station, int idx) {
  */
 void Brain::OnBoardToNext(int i, int p, int station, int idx) {
     platforms_[station].erase(platforms_[station].begin() + idx);
-    metros_[i].passenger = p;
+    metros_[i].passenger_ = p;
     carry_counts_[i] += 1;
-    items_[p].on_metro = i;
-    items_[p].visited.push_back(station);
+    items_[p].on_metro_ = i;
+    items_[p].visit_hist_.push_back(station);
 }
 
 /**
@@ -273,15 +273,15 @@ void Brain::OnBoardToNext(int i, int p, int station, int idx) {
  * @param station station idx
  */
 void Brain::OnBoard(int i, int station) {
-    if (metros_[i].passenger != -1) return;
+    if (metros_[i].passenger_ != -1) return;
     if (platforms_[station].size() > 0) {
         for (size_t idx = 0; idx < platforms_[station].size(); idx++) {
             int p = platforms_[station][idx];
             if (station == destinations_[p]) continue;
-            if (items_[p].cur_stop != destinations_[p]) {
-                if (items_[p].visited.size() == 0)
+            if (items_[p].cur_stop_ != destinations_[p]) {
+                if (items_[p].visit_hist_.size() == 0)
                     OnBoardFirstTime(i, p, station, idx);
-                else if (items_[p].visited.size() > 0 && cur_heights_[p][items_[p].visited[items_[p].visited.size() - 1]] > cur_heights_[p][metros_[i].GetNextStop()]) {
+                else if (items_[p].visit_hist_.size() > 0 && cur_heights_[p][items_[p].visit_hist_[items_[p].visit_hist_.size() - 1]] > cur_heights_[p][metros_[i].GetNextStop()]) {
                     OnBoardToNext(i, p, station, idx);
                 }
                 break;
@@ -296,18 +296,18 @@ void Brain::OnBoard(int i, int station) {
  * @param station station idx
  */
 void Brain::OffBoard(int i, int station) {
-    int p = metros_[i].passenger;
+    int p = metros_[i].passenger_;
     if (station == destinations_[p]) {
-        metros_[i].passenger = -1;
-        items_[p].on_metro = -1;
-        items_[p].cur_stop = station;
+        metros_[i].passenger_ = -1;
+        items_[p].on_metro_ = -1;
+        items_[p].cur_stop_ = station;
         platforms_[station].push_back(p);
         visitor_counts_[station] += 1;
     }
-    else if (cur_heights_[p][items_[p].visited[items_[p].visited.size() - 1]] >= cur_heights_[p][station]) {
-        metros_[i].passenger = -1;
-        items_[p].on_metro = -1;
-        items_[p].cur_stop = station;
+    else if (cur_heights_[p][items_[p].visit_hist_[items_[p].visit_hist_.size() - 1]] >= cur_heights_[p][station]) {
+        metros_[i].passenger_ = -1;
+        items_[p].on_metro_ = -1;
+        items_[p].cur_stop_ = station;
         platforms_[station].push_back(p);
         visitor_counts_[station] += 1;
     }
@@ -318,10 +318,10 @@ void Brain::OffBoard(int i, int station) {
  * @param i next stop idx
  */
 void Brain::UpdateArriving(int i) {
-    metros_[i].location[0] = station_locations_[metros_[i].GetNextStop()][0];
-    metros_[i].location[1] = station_locations_[metros_[i].GetNextStop()][1];
+    metros_[i].location_[0] = station_locations_[metros_[i].GetNextStop()][0];
+    metros_[i].location_[1] = station_locations_[metros_[i].GetNextStop()][1];
     metros_[i].OnArrive();
-    if (metros_[i].passenger == -1) {
+    if (metros_[i].passenger_ == -1) {
         OnBoard(i, metros_[i].GetCurStop());
     } else {
         OffBoard(i, metros_[i].GetCurStop());
@@ -334,21 +334,21 @@ void Brain::UpdateArriving(int i) {
  * @param i current stop idx
  */
 void Brain::UpdateDriving(int i) {
-    float x1 = station_locations_[metros_[i].route[metros_[i].next_stop_idx]][1] - metros_[i].location[1];
-    float x2 = station_locations_[metros_[i].route[metros_[i].next_stop_idx]][0] - metros_[i].location[0];
+    float x1 = station_locations_[metros_[i].route_[metros_[i].next_stop_idx_]][1] - metros_[i].location_[1];
+    float x2 = station_locations_[metros_[i].route_[metros_[i].next_stop_idx_]][0] - metros_[i].location_[0];
     float x3 = sqrt(x1 * x1 + x2 * x2);
-    metros_[i].location[0] += speed_ * x2 / x3;
-    metros_[i].location[1] += speed_ * x1 / x3;
+    metros_[i].location_[0] += speed_ * x2 / x3;
+    metros_[i].location_[1] += speed_ * x1 / x3;
 }
 
 void Brain::AdvanceOneFrame() {
     if (!on_pause_) {
         int count = 0;
         for (size_t i = 0; i < items_.size(); i++)
-            if (items_[i].cur_stop == destinations_[i]) count ++;
+            if (items_[i].cur_stop_ == destinations_[i]) count ++;
         if (count == items_.size()) return;
         for (size_t i = 0; i < metros_.size(); i++) {
-            if (glm::length(glm::vec2(metros_[i].location[0], metros_[i].location[1])
+            if (glm::length(glm::vec2(metros_[i].location_[0], metros_[i].location_[1])
                             - glm::vec2(station_locations_[metros_[i].GetNextStop()][0], station_locations_[metros_[i].GetNextStop()][1]))
                 < station_radius_ * 0.2) {
                 UpdateArriving(i);
@@ -377,10 +377,10 @@ bool Brain::HandleClickItem(const vec2 &vec) {
         if ((vec[0] - item_locations_[i][0]) * (vec[0] - item_locations_[i][0])
             + (vec[1] - item_locations_[i][1]) * (vec[1] - item_locations_[i][1])
             <= station_radius_ * 0.7 * station_radius_ * 0.7) {
-            if (!cur_heights_[i][items_[i].cur_stop]) {
+            if (!cur_heights_[i][items_[i].cur_stop_]) {
                 message_ = "Item " + std::to_string(i + 1) + " moved " + std::to_string(init_heights_[i]) + " times.";
             } else {
-                message_ = "Item " + std::to_string(i + 1) + " needs " + std::to_string(cur_heights_[i][items_[i].cur_stop]) + " more moves.";
+                message_ = "Item " + std::to_string(i + 1) + " needs " + std::to_string(cur_heights_[i][items_[i].cur_stop_]) + " more moves.";
             }
             return true;
         }
@@ -390,8 +390,8 @@ bool Brain::HandleClickItem(const vec2 &vec) {
 
 bool Brain::HandleClickMetro(const vec2 &vec) {
     for (int i = 0; i < metros_.size(); i++) {
-        if (abs(vec[0] - left_ - metros_[i].location[0]) <= station_radius_ * 0.9) {
-            if (abs(vec[1] - top_ - metros_[i].location[1]) <= station_radius_ * 0.9) {
+        if (abs(vec[0] - left_ - metros_[i].location_[0]) <= station_radius_ * 0.9) {
+            if (abs(vec[1] - top_ - metros_[i].location_[1]) <= station_radius_ * 0.9) {
                 message_ = "Metro " + std::to_string(i) + " has carried items " + std::to_string(carry_counts_[i]) + " times.";
                 return true;
             }

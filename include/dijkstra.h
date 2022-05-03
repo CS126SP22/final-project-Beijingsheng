@@ -11,9 +11,9 @@ public:
     Dijkstra();
     Dijkstra(std::vector<std::vector<int>> graph);
     std::vector<int> GetPath(int s);
-private:
     int num_of_vertices_;
     std::vector<std::vector<int>> graph_;
+private:
     int MinDist(std::vector<int> dist, std::vector<bool> sptSet);
 };
 

@@ -5,17 +5,26 @@
 
 namespace minimetro {
 
-    Item::Item(int start_station, ci::Color color) {
-        this->color = color;
-        this->cur_stop = start_station;
-        this->stop_visited = 0;
-        on_metro = -1;
-        std::vector<int> v;
-        this->visited = v;
-    }
+/**
+ * Constructor with start station and item color_
+ * @param start_station
+ * @param color
+ */
+Item::Item(int start_station, ci::Color color) {
+    this->color_ = color;
+    this->cur_stop_ = start_station;
+    this->stop_visited_ = 0;
+    on_metro_ = -1;
+    std::vector<int> v;
+    this->visit_hist_ = v;
+}
 
-    int Item::GetCurStop() {
-        return cur_stop;
-    }
+/**
+ * Getter for current stop
+ * @return current stop
+ */
+int Item::GetCurStop() {
+    return cur_stop_;
+}
 
 }

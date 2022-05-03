@@ -13,19 +13,15 @@ class Metro {
 public:
     Metro();
     Metro(std::vector<int> route, ci::Color color);
-
-    std::vector<float> location;
-    int stop_idx;
-    int next_stop_idx;
-    int passenger;
-    ci::Color color;
-    std::vector<int> route;
-
     int GetCurStop();
     int GetNextStop();
     void OnArrive();
-private:
-
+    std::vector<float> location_;
+    int cur_stop_idx_;
+    int next_stop_idx_;
+    int passenger_;
+    ci::Color color_;
+    std::vector<int> route_;
 };
 
 }
