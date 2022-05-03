@@ -22,7 +22,7 @@ public:
     void AdvanceOneFrame();
     void HandleBrush(const vec2& vec);
 
-    int kWindowSize;
+    int kWindowSize = 500;
     std::vector<int> destinations_;
     std::vector<std::vector<int>> item_locations_;
     std::vector<std::vector<int>> platforms_;
@@ -44,7 +44,6 @@ public:
     std::vector<int> init_heights_;
     std::vector<int> visitor_counts_;
     std::vector<int> carry_counts_;
-private:
     void DisplayConnections();
     void DisplayStations();
     void DisplayMetros();
