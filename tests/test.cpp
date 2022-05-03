@@ -158,3 +158,54 @@ TEST_CASE("Test Brain - Handle Click Metro") {
     brain.HandleBrush(vec2(200, 200));
     REQUIRE(brain.message_ == "Station 0 has been visited 0 times.");
 }
+
+// No.20
+TEST_CASE("Test Brain - On Board First Time") {
+    std::vector<std::vector<float>> locations {{100, 100}, {200, 200}};
+    std::vector<std::vector<int>> connections {{0,1}, {1,0}};
+    minimetro::Metro m(std::vector<int> {0,1,0}, ci::Color("white"));
+    std::vector<minimetro::Metro> metros;
+    metros.push_back(m);
+    std::vector<minimetro::Item> items;
+    minimetro::Item i(0, ci::Color("red"));
+    items.push_back(i);
+    std::vector<int> destinations {1};
+    minimetro::Brain brain(locations, connections, metros, 10, items, destinations, 500);
+    brain.OnBoard(0, 0);
+    REQUIRE(brain.platforms_[0].size() == 0);
+}
+
+// No.21
+TEST_CASE("Test Brain - Off Board") {
+    std::vector<std::vector<float>> locations {{100, 100}, {200, 200}};
+    std::vector<std::vector<int>> connections {{0,1}, {1,0}};
+    minimetro::Metro m(std::vector<int> {0,1,0}, ci::Color("white"));
+    std::vector<minimetro::Metro> metros;
+    metros.push_back(m);
+    std::vector<minimetro::Item> items;
+    minimetro::Item i(0, ci::Color("red"));
+    items.push_back(i);
+    std::vector<int> destinations {1};
+    minimetro::Brain brain(locations, connections, metros, 10, items, destinations, 500);
+    brain.OnBoard(0, 0);
+    brain.OffBoard(0, 0);
+    REQUIRE(brain.platforms_[0].size() == 1);
+}
+
+// No.22
+TEST_CASE("Test Brain - On Board To Next") {
+    std::vector<std::vector<float>> locations {{100, 100}, {200, 200},{300,300}};
+    std::vector<std::vector<int>> connections {{0,1, 0}, {1,0,1}, {0,1,0}};
+    minimetro::Metro m(std::vector<int> {0,1,2,1,0}, ci::Color("green"));
+    std::vector<minimetro::Metro> metros;
+    metros.push_back(m);
+    std::vector<minimetro::Item> items;
+    minimetro::Item i(1, ci::Color("red"));
+    i.visit_hist_.push_back(0);
+    i.cur_stop_ = 1;
+    items.push_back(i);
+    std::vector<int> destinations {2};
+    minimetro::Brain brain(locations, connections, metros, 10, items, destinations, 500);
+    brain.OnBoard(0, 1);
+    REQUIRE(brain.platforms_[1].size() == 0);
+}

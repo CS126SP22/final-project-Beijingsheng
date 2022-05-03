@@ -9,9 +9,20 @@ namespace minimetro {
 
 MiniMetroApp::MiniMetroApp() {
     ci::app::setWindowSize(kWindowSize, kWindowSize);
-    readDataStations();
-    readDataMetros();
-    readDataItems();
+    bool testing_mode = false;
+    if (testing_mode) {
+        this->station_locations_ =  {{300, 300}, {400, 400}};
+        this->station_connections_ = {{0,1}, {1,0}};
+        minimetro::Metro m(std::vector<int> {1,0,1}, ci::Color("black"));
+        this->metros_.push_back(m);
+        minimetro::Item i(0, ci::Color("red"));
+        this->items_.push_back(i);
+        this->destinations_.push_back(1);
+    } else {
+        readDataStations();
+        readDataMetros();
+        readDataItems();
+    }
     brain_ = Brain(station_locations_, station_connections_, metros_, 12, items_, destinations_, kWindowSize);
 }
 

@@ -68,8 +68,8 @@ public:
     void HandleHorizontalScrollBar(const vec2 &vec);
     void HandleSpeedControl(const vec2 &vec);
     bool HandleClickItem(const vec2 &vec);
-    bool HandleClickStation(const vec2 &vec);
     bool HandleClickMetro(const vec2 &vec);
+    bool HandleClickStation(const vec2 &vec);
 };
 
 }
