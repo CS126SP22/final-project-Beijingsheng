@@ -9,17 +9,15 @@ using glm::vec2;
 
 namespace minimetro {
 
-    class Item {
-    public:
-        Item(int start_station, ci::Color color);
-        int stop_visited;
-        int cur_stop;
-        ci::Color color;
-        int on_metro;
-        std::vector<int> visited;
-        int GetCurStop();
-    private:
-
-    };
+class Item {
+public:
+    Item(int start_station, ci::Color color);
+    int GetCurStop();
+    int stop_visited_;
+    ci::Color color_;
+    int on_metro_;
+    std::vector<int> visit_hist_;
+    int cur_stop_;
+};
 
 }

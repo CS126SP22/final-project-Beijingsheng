@@ -12,20 +12,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="comments on brain.cpp">
+    <list default="true" id="ce73d616-6488-4dd9-802d-1af2208c1d22" name="stop_visited" comment="more test cases on metro onboard and offboard">
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+    </list>
+    <list id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="refactor dijkstra.h and dijkstra.cpp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/brain.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/dijkstra.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/dijkstra.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/mini-metro.dir/src/simulator.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Debug/mini-metro/mini-metro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dijkstra.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dijkstra.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/json.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/json.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/items.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/items.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/brain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/brain.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dijkstra.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/dijkstra.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/item.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/item.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,12 +74,7 @@
       <recent name="$PROJECT_DIR$/apps" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.mini-metro">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Catch.mini-metro-test">
     <configuration name="mini-metro-test" type="CMakeCatchTestRunConfigurationType" factoryName="Catch Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="final_project_Beijingsheng" TARGET_NAME="mini-metro-test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="final_project_Beijingsheng" RUN_TARGET_NAME="mini-metro-test" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -101,12 +93,13 @@
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
+    <task id="Default" summary="Default task">
+      <branch name="main" repository="$PROJECT_DIR$" />
       <changelist id="a1c62aa7-cbba-4ddc-a6f8-1ddf4c109045" name="Changes" comment="" />
       <created>1649796480770</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1649796480770</updated>
+      <updated>1651464144282</updated>
       <workItem from="1649796481991" duration="292000" />
       <workItem from="1649796819375" duration="94000" />
       <workItem from="1649796939591" duration="11112000" />
@@ -132,7 +125,7 @@
       <workItem from="1651424343007" duration="21000" />
       <workItem from="1651424391740" duration="122000" />
       <workItem from="1651424529451" duration="17000" />
-      <workItem from="1651424556512" duration="12391000" />
+      <workItem from="1651424556512" duration="12660000" />
     </task>
     <task id="LOCAL-00001" summary="set up simulator.h, simulator.cpp, render window">
       <created>1649801345562</created>
@@ -281,7 +274,75 @@
       <option name="project" value="LOCAL" />
       <updated>1651442030832</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task active="true" id="LOCAL-00022" summary="refactor dijkstra.h and dijkstra.cpp">
+      <changelist id="ce73d616-6488-4dd9-802d-1af2208c1d22" name="stop_visited" comment="" />
+      <created>1651463894885</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1651464163600</updated>
+      <workItem from="1651464164030" duration="560000" />
+      <workItem from="1651516759520" duration="55000" />
+      <workItem from="1651516868924" duration="2301000" />
+      <workItem from="1651541842108" duration="2993000" />
+      <workItem from="1651585306751" duration="1658000" />
+      <workItem from="1651606156673" duration="692000" />
+    </task>
+    <task id="LOCAL-00023" summary="stop_visited">
+      <branch name="main" repository="$PROJECT_DIR$" original="true" />
+      <branch name="stop_visited" repository="$PROJECT_DIR$/cmake-build-debug/_deps/catch2-src" />
+      <branch name="stop_visited" repository="$PROJECT_DIR$" />
+      <changelist id="ce73d616-6488-4dd9-802d-1af2208c1d22" name="stop_visited" comment="" />
+      <created>1651464141452</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1651464163600</updated>
+      <workItem from="1651464145026" duration="19000" />
+    </task>
+    <task id="LOCAL-00024" summary="refactored item.h and item.cpp">
+      <created>1651464386217</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1651464386217</updated>
+    </task>
+    <task id="LOCAL-00025" summary="refactored metro.h and metro.cpp">
+      <created>1651464581901</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1651464581901</updated>
+    </task>
+    <task id="LOCAL-00026" summary="several test cases for brain, metro, item">
+      <created>1651519126539</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1651519126540</updated>
+    </task>
+    <task id="LOCAL-00027" summary="TEST CASES FOR DIJKSTRA">
+      <created>1651543179403</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1651543179403</updated>
+    </task>
+    <task id="LOCAL-00028" summary="more test cases">
+      <created>1651544829470</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1651544829470</updated>
+    </task>
+    <task id="LOCAL-00029" summary="more test cases on metro onboard and offboard">
+      <created>1651586939381</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1651586939381</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,9 +361,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="set up simulator.h, simulator.cpp, render window" />
-    <MESSAGE value="brain initialization, display, advanceOneFrame" />
-    <MESSAGE value="added brain logic for metro moving around" />
     <MESSAGE value="logic on boarding and leaving a metro" />
     <MESSAGE value="passenger logic" />
     <MESSAGE value="dijkstra for opitimizing routes" />
@@ -321,6 +379,13 @@
     <MESSAGE value="commenting and refactoring simulator.h and simulator.cpp" />
     <MESSAGE value="refactor brain.h and brain.cpp" />
     <MESSAGE value="comments on brain.cpp" />
-    <option name="LAST_COMMIT_MESSAGE" value="comments on brain.cpp" />
+    <MESSAGE value="refactor dijkstra.h and dijkstra.cpp" />
+    <MESSAGE value="refactored item.h and item.cpp" />
+    <MESSAGE value="refactored metro.h and metro.cpp" />
+    <MESSAGE value="several test cases for brain, metro, item" />
+    <MESSAGE value="TEST CASES FOR DIJKSTRA" />
+    <MESSAGE value="more test cases" />
+    <MESSAGE value="more test cases on metro onboard and offboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="more test cases on metro onboard and offboard" />
   </component>
 </project>
