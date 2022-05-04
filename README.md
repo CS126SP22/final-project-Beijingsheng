@@ -34,6 +34,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#usage">Usage</a></li>
   </ol>
 </details>
 
@@ -77,5 +78,20 @@ This is an example of how to list things you need to use the software and how to
 ### Installation
 
 * Create a directory called my-projects in your Cinder folder. Navigate to the my-projects folder and clone this repository within it, and then open the repository using CLion. You should be able to run two different targets; make sure that both of them work.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Usage
+
+To simulate a scenario, you would need to edit three json files in the resources folder.
+* One that refers to all the stations, including their connections and locations
+* One that refers to all the metros/carriers, including their routes and colors
+* One that refers to all the cargos, including their color, start stations, and destinations
+Play around by editing these files, see what you get by building the mini-metro.
+
+Features for you to explore in the GUI:
+* Click on each cargo, carrier, and station to see the message displayed on top.
+* Two numbers are displayed above the message, representing the moves needed before all cargo arrives at their destinations, and the total moves needed.
+* Speed up and slow down the carriers, pause and resume the system.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
