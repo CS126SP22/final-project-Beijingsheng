@@ -35,9 +35,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Wanna figure out if your cargo carrying system is well designed? Mini Cargo Simulator is the right solution. This is the app that perfectly suits your need to measure, analyze, and improve your cargo carrying system. With very little efforts(providing three json files), you will have a perfectly visualization of how well the cargo carrying system you designed performs in various situations.
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
