@@ -35,12 +35,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Wanna figure out if your cargo carrying system is well designed? Mini Cargo Simulator is the right solution. This is the app that perfectly suits your need to measure, analyze, and improve your cargo carrying system. With very little efforts(providing three json files), you will have a perfectly visualization of how well the cargo carrying system you designed performs in various situations.
+Wanna figure out if your cargo carrying system is well designed? Mini Cargo Simulator is the right solution. This is the app that perfectly suits your need to measure, analyze, and improve your cargo carrying system.
 
 Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+* By editing three json files, you will have a perfectly visualization of how well the cargo carrying system you designed performs in various situations.
+* You will be able to measure the rationality of the placement of your cargo stations, the route of your carriers, and the designated departures and destinations.
+* Improving your design and generate new visualization as easy as modifying values in json files.
 
 Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
 
