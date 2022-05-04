@@ -23,6 +23,9 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -43,6 +46,15 @@ Here's why:
 * Improving your design and generate new visualization as easy as modifying values in json files.
 
 Of course, no one simulator will serve all your needs. You may also suggest changes by connecting with me at clarklubeijing at gmail dot com. So I'll be adding more requested features in the near future. 
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Built With
+
+This is a list of all the major frameworks/libraries/editors used to develop this simulator.
+
+* [CLion](https://www.jetbrains.com/clion/)
+* [Cinder](https://libcinder.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
