@@ -72,6 +72,7 @@ To get a local copy up and running follow these simple example steps.
 
 This is an example of how to list things you need to use the software and how to install them.
 * [Install CLion and Cinder](https://courses.grainger.illinois.edu/cs126/sp2022/notes/cinder-installation-notes/)
+* Create a directory called my-projects in your Cinder folder. Navigate to the my-projects folder and clone this repository within it, and then open the repository using CLion. You should be able to run two different targets; make sure that both of them work.
 
 ### Installation
 
