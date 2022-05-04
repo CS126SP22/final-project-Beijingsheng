@@ -42,16 +42,14 @@ Here's why:
 * You will be able to measure the rationality of the placement of your cargo stations, the route of your carriers, and the designated departures and destinations.
 * Improving your design and generate new visualization as easy as modifying values in json files.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+Of course, no one simulator will serve all your needs. You may also suggest changes by connecting with me at clarklubeijing at gmail dot com. So I'll be adding more requested features in the near future. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
+This is an example of how you may set up and use the simulator locally.
 To get a local copy up and running follow these simple example steps.
 
 
